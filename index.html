@@ -100,7 +100,7 @@
     root: '/',
     scheme: 'Muse',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -183,7 +183,7 @@
       
         
         <li class="menu-item menu-item-home">
-          <a href="/%20" rel="section">
+          <a href="/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
@@ -193,7 +193,7 @@
       
         
         <li class="menu-item menu-item-about">
-          <a href="/about/%20" rel="section">
+          <a href="/about/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
@@ -203,7 +203,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags/%20" rel="section">
+          <a href="/tags/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
@@ -213,9 +213,9 @@
       
         
         <li class="menu-item menu-item-categories">
-          <a href="/categories/%20" rel="section">
+          <a href="/categories/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-list"></i> <br />
             
             Categories
           </a>
@@ -223,11 +223,41 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives/%20" rel="section">
+          <a href="/archives/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            Schedule
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            Sitemap
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            Commonweal 404
           </a>
         </li>
       
@@ -335,63 +365,17 @@
       
         
           
-            <h2 id="一-Go语言介绍"><a href="#一-Go语言介绍" class="headerlink" title="一 Go语言介绍"></a>一 Go语言介绍</h2><p>Go语言是Google公司开发的一种静态、编译型语言，具备自动垃圾回收功能，原生支持并发开发。   </p>
-<p>Go的诞生是为了解决当下编程语言对并发支持不友好、编译速度慢、编程复杂这三个主要问题。   </p>
-<p>Go既拥有接近静态编译语言（如C）的安全和性能，又有接近脚本语言（如python）的开发效率，其主要特点有：   </p>
-<ul>
-<li>天然并发：语言层面支持并发，包括gorotuine、channel</li>
-<li>语法优势：没有历史包袱，包含多返回值、匿名函数、defer</li>
-<li>语言层面支持多核CPU利用</li>
-</ul>
-<p>与Java相比的不同：</p>
-<ul>
-<li>没有Java支持的一些面向对象思想：重载、构造函数、继承等</li>
-<li>代码规范严格：花括号位置固定，变量名大小写代表公有私有等</li>
-<li>支持函数式编程：匿名函数，闭包</li>
-<li>接口非侵入式：不需要显式声明对接口的继承，实现了接口的方法即为实现了该接口类型</li>
-</ul>
-<h2 id="二-Go安装"><a href="#二-Go安装" class="headerlink" title="二 Go安装"></a>二 Go安装</h2><p>推荐使用官方的安装包直接安装，下载地址：<a href="https://golang.org/dl/" target="_blank" rel="noopener">https://golang.org/dl/</a>   </p>
-<p>贴士：本笔记都是基于go1.13    </p>
-<p><strong>Win安装Go</strong>：<br>打开Win安装包下一步下一步即可，默认安装在目录：c:\Go  </p>
-<p><strong>Mac安装Go</strong>：<br>打开Mac安装包下一步下一步即可，需要预装Xcode。安装完毕后需配置环境变量即可使用，但是如果要使用一些<code>go mod</code>功能推荐如下配置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">vim ~&#x2F;.bash_profile</span><br><span class="line"></span><br><span class="line">export GOROOT&#x3D;&#x2F;usr&#x2F;local&#x2F;go                 # golang本身的安装位置</span><br><span class="line">export GOPATH&#x3D;~&#x2F;go&#x2F;                         # golang包的本地安装位置</span><br><span class="line">export GOPROXY&#x3D;https:&#x2F;&#x2F;goproxy.io           # golang包的下载代理</span><br><span class="line">export GO111MODULE&#x3D;on                       # 开启go mod模式</span><br><span class="line">export PATH&#x3D;$PATH:$GOROOT&#x2F;bin               # go本身二进制文件的环境变量</span><br><span class="line">export PATH&#x3D;$PATH:$GOPATH&#x2F;bin               # go第三方二进制文件的环境便令</span><br><span class="line"></span><br><span class="line"># 重启环境</span><br><span class="line">source ~&#x2F;.bash_profile</span><br></pre></td></tr></table></figure>
-
-<p><strong>Linux安装Go</strong>：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># 下载解压</span><br><span class="line">wget https:&#x2F;&#x2F;dl.google.com&#x2F;go&#x2F;go1.13.1.linux-amd64.tar.gz</span><br><span class="line">tar zxvf go*.tar.gz -C &#x2F;usr&#x2F;local&#x2F;</span><br><span class="line"></span><br><span class="line"># 配置环境：注意该环境必须是go1.11版本及以上且项目要求使用go mod才可以开启</span><br><span class="line">vim &#x2F;etc&#x2F;profile</span><br><span class="line">export GOROOT&#x3D;&#x2F;usr&#x2F;local&#x2F;go                 # golang本身的安装位置</span><br><span class="line">export GOPATH&#x3D;~&#x2F;go                          # golang包的本地安装位置</span><br><span class="line">export GOPROXY&#x3D;https:&#x2F;&#x2F;goproxy.io,direct    # golang包的下载代理,回源地址获取</span><br><span class="line">export GO111MODULE&#x3D;on                       # 开启go mod模式</span><br><span class="line">export PATH&#x3D;$PATH:$GOROOT&#x2F;bin               # go本身二进制文件的环境变量</span><br><span class="line">export PATH&#x3D;$PATH:$GOPATH&#x2F;bin               # go第三方二进制文件的环境便令</span><br><span class="line"></span><br><span class="line"># 重启环境</span><br><span class="line">source &#x2F;etc&#x2F;profile</span><br></pre></td></tr></table></figure>
-
-<p>测试安装：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 查看go版本</span><br><span class="line">go version</span><br><span class="line"></span><br><span class="line"># 查看go环境配置</span><br><span class="line">go env</span><br></pre></td></tr></table></figure>
-
-<p>关于<code>go modules</code>的详细讲解位于本章12节。</p>
-<h2 id="三-HelloWorld"><a href="#三-HelloWorld" class="headerlink" title="三 HelloWorld"></a>三 HelloWorld</h2><p>新建文件<code>hello.go</code>，代码如下：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main                        <span class="comment">//每个程序都有且仅有一个main包</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span>    </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;                       <span class="comment">//主函数main只有一个</span></span><br><span class="line">    fmt.Println(<span class="string">"Hello World!"</span>)     <span class="comment">//函数调用：包名.函数名</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>运行文件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 执行方式一：先编译，再运行</span><br><span class="line">go build hello.go        # 编译。在同级目录下生成文件&#96;hello&#96;，添加参数&#96;-o 名称&#96; 则可指定生成的文件名 </span><br><span class="line">.&#x2F;hello                  # 运行。贴士：win下生成的是.exe文件，直接双击执行即可</span><br><span class="line"></span><br><span class="line"># 执行方式二：直接运行</span><br><span class="line">go run hello.go</span><br></pre></td></tr></table></figure>
-
-<p>两种执行流程的区别：  </p>
-<ul>
-<li>先编译方式：可执行文件可以在任意没有go环境的机器上运行，（因为go依赖被打包进了可执行文件）</li>
-<li>直接执行方式：源码执行时，依赖于机器上的go环境，没有go环境无法直接运行</li>
-</ul>
-<h2 id="四-Go语法注意"><a href="#四-Go语法注意" class="headerlink" title="四 Go语法注意"></a>四 Go语法注意</h2><ul>
-<li>Go源文件以 “go” 为扩展名</li>
-<li>与Java、C语言类似，Go应用程序的执行入口也是main()函数</li>
-<li>Go语言严格区分大小写</li>
-<li>Go不需要分号结尾</li>
-<li>Go编译是一行一行执行，所以不能将类似两个 Print 函数写在一行</li>
-<li>Go语言定义的变量或者import的包如果没有使用到，代码不能编译通过</li>
-<li>Go的注释使用 // 或者 /*  */</li>
-</ul>
-<h2 id="五-开发工具推荐"><a href="#五-开发工具推荐" class="headerlink" title="五 开发工具推荐"></a>五 开发工具推荐</h2><p>笔者推荐的go开发工具：</p>
-<ul>
-<li>goland</li>
-<li>vscode</li>
-</ul>
-<p>vscode的相关go插件会出现无法下载情况，解决办法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"># 如果开启了go mod，则</span><br><span class="line">    go get -u -v github.com&#x2F;ramya-rao-a&#x2F;go-outline</span><br><span class="line">    go get -u -v github.com&#x2F;acroca&#x2F;go-symbols</span><br><span class="line">    go get -u -v golang.org&#x2F;x&#x2F;tools&#x2F;cmd&#x2F;guru</span><br><span class="line">    go get -u -v golang.org&#x2F;x&#x2F;tools&#x2F;cmd&#x2F;gorename</span><br><span class="line">    go get -u -v github.com&#x2F;rogpeppe&#x2F;godef</span><br><span class="line">    go get -u -v github.com&#x2F;sqs&#x2F;goreturns</span><br><span class="line">    go get -u -v github.com&#x2F;cweill&#x2F;gotests&#x2F;gotests</span><br><span class="line">    go get -u -v golang.org&#x2F;x&#x2F;lint&#x2F;golint</span><br><span class="line"></span><br><span class="line"># 如果未开启go mod，则需要进入cd $GOPATH&#x2F;src ，使用 git clone 下载上述文件        </span><br><span class="line"></span><br><span class="line"># 安装</span><br><span class="line">cd $GOPATH</span><br><span class="line">    go install github.com&#x2F;ramya-rao-a&#x2F;go-outline</span><br><span class="line">    go install github.com&#x2F;acroca&#x2F;go-symbols</span><br><span class="line">    go install golang.org&#x2F;x&#x2F;tools&#x2F;cmd&#x2F;guru</span><br><span class="line">    go install golang.org&#x2F;x&#x2F;tools&#x2F;cmd&#x2F;gorename</span><br><span class="line">    go install github.com&#x2F;rogpeppe&#x2F;godef</span><br><span class="line">    go install github.com&#x2F;sqs&#x2F;goreturns</span><br><span class="line">    go install github.com&#x2F;cweill&#x2F;gotests&#x2F;gotests</span><br><span class="line">    go install golang.org&#x2F;x&#x2F;lint&#x2F;golint</span><br></pre></td></tr></table></figure>
-
-          
+          一 Go语言介绍Go语言是Google公司开发的一种静态、编译型语言，具备自动垃圾回收功能，原生支持并发开发。   
+Go的诞生是为了解决当下编程语言对并发支持不友好、编译速度慢、编程复杂这三个主要问题。   
+Go既拥有接近静态编译语言（如C）的安全和性能，又有接近脚本语言（如python）的开发
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/06/16/Go%E7%AE%80%E4%BB%8B/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -509,21 +493,15 @@
       
         
           
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
+          Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in 
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/05/21/hello-world/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -605,7 +583,7 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/archives/%20%7C%7C%20archive">
+                <a href="/archives/%7C%7C%20archive">
               
                   <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">posts</span>
@@ -629,11 +607,45 @@
           
 
           
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Cool2Feel" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:cool2feel@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
 
           
           
 
           
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.cnblogs.com/cool2feel/" title="cnblogs" target="_blank">cnblogs</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.csdn.net/Cool2Feel" title="csdn" target="_blank">csdn</a>
+                  </li>
+                
+              </ul>
+            </div>
           
 
           
@@ -643,6 +655,13 @@
 
       
 
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
       
 
     </div>
@@ -690,11 +709,6 @@
       </div>
     </footer>
 
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
     
 
     
