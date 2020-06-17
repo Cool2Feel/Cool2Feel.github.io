@@ -90,11 +90,13 @@
 <meta property="og:url" content="http://www.dwlblog.网址/2020/06/16/%E5%B8%B8%E9%87%8F/index.html">
 <meta property="og:site_name" content="Dwl&#39;s blog">
 <meta property="og:description" content="一 常量常量：在编译阶段就确定下来的值，程序运行时无法改变。    定义方式： 123const A &#x3D; 3const PI float32 &#x3D; 3.1415const mask &#x3D; 1 &lt;&lt; 3						&#x2F;&#x2F;常量与表达式  错误写法：常量赋值是一个编译期行为，右边的值不能出现在运行时才能得到结果的值。 1const HOME &#x3D; os.GetEnv(&quot;HOME&quot;)  二 无类型常量">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1762180/202006/1762180-20200612111216567-1625246241.png">
 <meta property="article:published_time" content="2020-06-16T07:24:57.000Z">
-<meta property="article:modified_time" content="2020-06-16T07:56:45.297Z">
+<meta property="article:modified_time" content="2020-06-17T07:19:07.537Z">
 <meta property="article:author" content="Dwesome">
 <meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img2020.cnblogs.com/blog/1762180/202006/1762180-20200612111216567-1625246241.png">
 
 
 
@@ -195,26 +197,6 @@
         </li>
       
         
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
         <li class="menu-item menu-item-categories">
           <a href="/categories/" rel="section">
             
@@ -235,12 +217,32 @@
         </li>
       
         
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-schedule">
           <a href="/schedule/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
             
             日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
           </a>
         </li>
       
@@ -482,6 +484,9 @@
 
 <p>当尝试将这些无类型的常量转为一个接口值时（见第7章），这些默认类型将显得尤为重要，因为要靠它们明确接口对应的动态类型。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fmt.Printf(<span class="string">"%T\n"</span>, <span class="number">0</span>)      		<span class="comment">// "int"</span></span><br><span class="line">fmt.Printf(<span class="string">"%T\n"</span>, <span class="number">0.0</span>)    		<span class="comment">// "float64"</span></span><br><span class="line">fmt.Printf(<span class="string">"%T\n"</span>, <span class="number">0i</span>)     		<span class="comment">// "complex128"</span></span><br><span class="line">fmt.Printf(<span class="string">"%T\n"</span>, <span class="string">'\000'</span>) 		<span class="comment">// "int32" (rune)</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img2020.cnblogs.com/blog/1762180/202006/1762180-20200612111216567-1625246241.png" alt=""></p>
+
       
     </div>
     

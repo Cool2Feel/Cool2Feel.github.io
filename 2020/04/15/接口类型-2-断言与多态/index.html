@@ -90,11 +90,13 @@
 <meta property="og:url" content="http://www.dwlblog.网址/2020/04/15/%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B-2-%E6%96%AD%E8%A8%80%E4%B8%8E%E5%A4%9A%E6%80%81/index.html">
 <meta property="og:site_name" content="Dwl&#39;s blog">
 <meta property="og:description" content="一 断言接口是编程的规范，他也可以作为函数的参数，以让函数更具备适用性。在下列示例中，有三个接口动物接口、飞翔接口、游泳接口，两个实现类鸟类与鱼类：  鸟类：实现了动物接口，飞翔接口 鱼类：实现了动物接口，游泳接口  1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1762180/202006/1762180-20200612111216567-1625246241.png">
 <meta property="article:published_time" content="2020-04-15T08:14:57.000Z">
-<meta property="article:modified_time" content="2020-06-16T07:59:18.633Z">
+<meta property="article:modified_time" content="2020-06-17T07:21:45.495Z">
 <meta property="article:author" content="Dwesome">
 <meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img2020.cnblogs.com/blog/1762180/202006/1762180-20200612111216567-1625246241.png">
 
 
 
@@ -195,26 +197,6 @@
         </li>
       
         
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
         <li class="menu-item menu-item-categories">
           <a href="/categories/" rel="section">
             
@@ -235,12 +217,32 @@
         </li>
       
         
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-schedule">
           <a href="/schedule/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
             
             日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
           </a>
         </li>
       
@@ -471,6 +473,9 @@
 <h2 id="三-多态"><a href="#三-多态" class="headerlink" title="三 多态"></a>三 多态</h2><p>多态是面向对象的三大特性之一，即一个类型具备多种具体的表现形式。  </p>
 <p>上述示例中，鸟和鱼都实现了动物接口的 Breath方法，即动物的Breath方法在鸟和鱼中具备不同的体现。我们在new出动物的具体对象实例时，这个对象实例也就实现了对应自己的接口方法。  </p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// New出Animal的函数</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewAnimal</span><span class="params">(kind <span class="keyword">string</span>)</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">switch</span> kind &#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="string">"鸟类"</span>:</span><br><span class="line">		<span class="keyword">return</span> &amp;Bird&#123;&#125;</span><br><span class="line">	<span class="keyword">case</span> <span class="string">"鱼类"</span>:</span><br><span class="line">		<span class="keyword">return</span> &amp;Fish&#123;&#125;</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// 获取的是动物接口类型，但是实现类是鸟类</span></span><br><span class="line">	a1 := NewAnimal(<span class="string">"鸟类"</span>)</span><br><span class="line">	a1.Breath()		<span class="comment">// 鸟 在 陆地 呼吸</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 获取的是动物接口类型，但是实现类是鱼类</span></span><br><span class="line">	a2 := NewAnimal(<span class="string">"鱼类"</span>)</span><br><span class="line">	a2.Breath()		<span class="comment">// 鱼 在 水下 呼吸</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img2020.cnblogs.com/blog/1762180/202006/1762180-20200612111216567-1625246241.png" alt=""></p>
+
       
     </div>
     

@@ -90,11 +90,13 @@
 <meta property="og:url" content="http://www.dwlblog.网址/2020/06/16/%E5%87%BD%E6%95%B0-1-%E5%87%BD%E6%95%B0%E7%AE%80%E4%BB%8B/index.html">
 <meta property="og:site_name" content="Dwl&#39;s blog">
 <meta property="og:description" content="一 函数1.1 函数声明函数声明格式： 1234func 函数名字 (参数列表) (返回值列表）&amp;#123;	&#x2F;&#x2F; 函数体	return 返回值列表&amp;#125; 注意：  函数名首字母小写为私有，大写为公有； 参数列表可以有0-多个，多参数使用逗号分隔，不支持默认参数； 返回值列表返回值类型可以不用写变量名 如果只有一个返回值且不声明类型，可以省略返回值列表与括号 如果有返回值，函数内必须有ret">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1762180/202006/1762180-20200612111216567-1625246241.png">
 <meta property="article:published_time" content="2020-06-16T07:24:57.000Z">
-<meta property="article:modified_time" content="2020-06-16T07:57:49.383Z">
+<meta property="article:modified_time" content="2020-06-17T07:20:31.284Z">
 <meta property="article:author" content="Dwesome">
 <meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img2020.cnblogs.com/blog/1762180/202006/1762180-20200612111216567-1625246241.png">
 
 
 
@@ -195,26 +197,6 @@
         </li>
       
         
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
         <li class="menu-item menu-item-categories">
           <a href="/categories/" rel="section">
             
@@ -235,12 +217,32 @@
         </li>
       
         
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-schedule">
           <a href="/schedule/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
             
             日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
           </a>
         </li>
       
@@ -495,6 +497,7 @@
 <h4 id="3-3-make函数"><a href="#3-3-make函数" class="headerlink" title="3.3 make函数"></a>3.3 make函数</h4><p>make函数经常用来创建切片、Map、管道：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">m1 := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">m2 := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span>, <span class="number">10</span>)</span><br></pre></td></tr></table></figure>
 <p>上面展示了两种map的创建方式，其不同点是第一种创建方式无法预估长度，当长度超过了当前长度时，会引起内存的拷贝！！第二种创建方式直接限定了长度，这样能有效提升性能！</p>
+<p><img src="https://img2020.cnblogs.com/blog/1762180/202006/1762180-20200612111216567-1625246241.png" alt=""></p>
 
       
     </div>
