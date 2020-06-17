@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>设计模式——单例模式</title>
-    <url>/2020/06/16/C#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</url>
+    <url>/2020/06/17/C#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><p>   今天就开始分析第一个设计模式，该模式是：【单例模式】，英文名称：Singleton Pattern，这个模式很简单，一个类型只需要一个实例，他是创建型的设计模式。为什么叫“创建型”设计模式呢，因为他们有分类。当然了分类的方式不一样，分类的结果也就不一样。<br>   从目的来看：</p>
 <pre><code>-创建型（Creational）模式：负责对象创建
 
