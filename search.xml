@@ -2016,9 +2016,9 @@ test(list): 列表页添加测试代码</code></pre><p>这里对提交规范加�
 
 -对象模式处理对象间的动态关系</code></pre><p>  以上就是分类的方式，我们按大多数的分类，采用“从目的来看”的分类来对设计模式进行分类。</p>
 <h3 id="1-定义："><a href="#1-定义：" class="headerlink" title="1.定义："></a>1.定义：</h3><h4 id="1-1-动机（Motivate）"><a href="#1-1-动机（Motivate）" class="headerlink" title="1.1 动机（Motivate）"></a>1.1 动机（Motivate）</h4><p>   在软件系统中，经常有这样一些特殊的类，必须保证它们在系统中只存在一个实例，才能确保它们的逻辑正确性、以及良好的效率。</p>
-<h4 id="2-2、意图（Intent）"><a href="#2-2、意图（Intent）" class="headerlink" title="2.2、意图（Intent）"></a>2.2、意图（Intent）</h4><p>   某一个类只有一个实例，并且这个实例是在类内部进行实例化，并向整个系统提供该实例。</p>
-<h4 id="2-3、结构图（Structure）"><a href="#2-3、结构图（Structure）" class="headerlink" title="2.3、结构图（Structure）"></a>2.3、结构图（Structure）</h4><p><img src="https://img2020.cnblogs.com/blog/1762180/202006/1762180-20200617194552021-2132476937.gif" alt=""></p>
-<h4 id="2-4、模式的组成"><a href="#2-4、模式的组成" class="headerlink" title="2.4、模式的组成"></a>2.4、模式的组成</h4><p>   单件实例（Singleton）：这个模式里面只有一个类型，就是Singleton类型，并且这个类只有一个实例，可以通过Instance()方法获取该类型的实例。</p>
+<h4 id="1-2、意图（Intent）"><a href="#1-2、意图（Intent）" class="headerlink" title="1.2、意图（Intent）"></a>1.2、意图（Intent）</h4><p>   某一个类只有一个实例，并且这个实例是在类内部进行实例化，并向整个系统提供该实例。</p>
+<h4 id="1-3、结构图（Structure）"><a href="#1-3、结构图（Structure）" class="headerlink" title="1.3、结构图（Structure）"></a>1.3、结构图（Structure）</h4><p><img src="https://img2020.cnblogs.com/blog/1762180/202006/1762180-20200617194552021-2132476937.gif" alt=""></p>
+<h4 id="1-4、单例模式的组成"><a href="#1-4、单例模式的组成" class="headerlink" title="1.4、单例模式的组成"></a>1.4、单例模式的组成</h4><p>   单件实例（Singleton）：这个模式里面只有一个类型，就是Singleton类型，并且这个类只有一个实例，可以通过Instance()方法获取该类型的实例。</p>
 <h3 id="2-单例模式的通用代码："><a href="#2-单例模式的通用代码：" class="headerlink" title="2.单例模式的通用代码："></a>2.单例模式的通用代码：</h3><pre><code>public sealed class Singleton
    {
        private static sealed Singleton _singleton = new Singleton();
