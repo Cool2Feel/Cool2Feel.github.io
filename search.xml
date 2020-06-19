@@ -153,68 +153,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Go语言-字符串</title>
-    <url>/posts/a9fd7819.html</url>
-    <content><![CDATA[<h2 id="一-字符"><a href="#一-字符" class="headerlink" title="一 字符"></a>一 字符</h2><p>Golang 中没有专门的字符类型，如果要存储单个字符(字母)，一般使用 byte 来保存，且使用单引号包裹。  </p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> c1 <span class="keyword">byte</span> = <span class="string">'a'</span></span><br><span class="line"><span class="keyword">var</span> c2 <span class="keyword">byte</span> = <span class="string">'0'</span></span><br><span class="line">fmt.Println(<span class="string">"c1="</span>, c1)					<span class="comment">//输出 97   </span></span><br><span class="line">fmt.Println(<span class="string">"c2="</span>, c2)					<span class="comment">//输出48</span></span><br><span class="line">fmt.Printf(<span class="string">"c1=%c,c2=%c\n"</span>, c1, c2)	    <span class="comment">//输出原值 a 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//var c3 byte = '北'</span></span><br><span class="line"><span class="comment">//fmt.Printf("c3=%c", c3)					// 溢出错误:overflows byte</span></span><br></pre></td></tr></table></figure>
-
-<p>贴士：</p>
-<ul>
-<li>字符类型也可以用<code>d%</code>打印为整型</li>
-<li>如果我们保存的字符在 ASCII 表的,比如[0-1, a-z,A-Z..]直接可以保存到 byte</li>
-<li>如果我们保存的字符对应码值大于 255,这时我们可以考虑使用 int 类型保存</li>
-<li>如果我们需要安装字符的方式输出，这时我们需要格式化输出，即 fmt.Printf(“%c”, c1)</li>
-<li>字符可以和整型进行运算</li>
-</ul>
-<h2 id="二-字符串"><a href="#二-字符串" class="headerlink" title="二 字符串"></a>二 字符串</h2><p>传统的字符串是由字符组成的，而Go的字符串是由单个字节连接起来的，即Go字符串是一串固定长度的字符连接起来的字符序列。  </p>
-<p>字符串在Go语言中是基本类型，内容在初始化后不能修改。  </p>
-<p>Go中的字符串都是采用UTF-8字符集编码，使用一对双引号<code>&quot;&quot;</code>或反引号<code>``</code>定义。<code>``</code>可以额外解析换行，即其没有字符转义功能。</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> str1 <span class="keyword">string</span></span><br><span class="line">str1 = <span class="string">"Hello "</span></span><br><span class="line">str2 := <span class="string">" World!"</span></span><br><span class="line"></span><br><span class="line">fmt.Println(str1[<span class="number">0</span>])     	<span class="comment">// 输出字符串第一个字符 72</span></span><br><span class="line">fmt.Println(<span class="built_in">len</span>(str1))   	<span class="comment">// 输出长度 6</span></span><br><span class="line">fmt.Println(str1 + str2) 	<span class="comment">// 输出不带空格的</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 字符串不可变，编译报错： cannot assign to 因为</span></span><br><span class="line"><span class="comment">// str1[0] = 'c'</span></span><br></pre></td></tr></table></figure>
-
-<p>由于Go中的字符串不可直接改变，可以使用下列两种方式进行修改：</p>
-<p>方式一：通过转换为字节数组<code>[]byte</code>类型，构造一个临时字符串</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">str := <span class="string">"hello"</span></span><br><span class="line"></span><br><span class="line">strTemp := []<span class="keyword">byte</span>(str)</span><br><span class="line">fmt.Println(<span class="string">"strTemp="</span>, strTemp)			<span class="comment">// [104 101 108 108 111]</span></span><br><span class="line"></span><br><span class="line">strTemp[<span class="number">0</span>] = <span class="string">'c'</span></span><br><span class="line">strResult := <span class="keyword">string</span>(strTemp)</span><br><span class="line">fmt.Println(<span class="string">"strResult="</span>, strResult)		<span class="comment">// strResult= cello</span></span><br></pre></td></tr></table></figure>
-
-<p>方式二：使用切片</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">str := <span class="string">"hello"</span></span><br><span class="line">str = <span class="string">"c"</span>+ str[<span class="number">1</span>:]		<span class="comment">// 1: 表示从第1位开始到最后</span></span><br></pre></td></tr></table></figure>
-
-<p>Go和Java等语言一样，字符串默认是不可变的，这样保证了线程安全，大家使用的都是只读对象，无须加锁，且能很方便的共享内存，不必使用写时复制。</p>
-<h2 id="三-字符串常用操作"><a href="#三-字符串常用操作" class="headerlink" title="三 字符串常用操作"></a>三 字符串常用操作</h2><h4 id="3-1-len-函数与字符串遍历"><a href="#3-1-len-函数与字符串遍历" class="headerlink" title="3.1 len()函数与字符串遍历"></a>3.1 len()函数与字符串遍历</h4><p>len()函数是go语言的内建函数，可以用来获取字符串、切片、通道等的长度。</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"unicode/utf8"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	str1 := <span class="string">"hello world"</span></span><br><span class="line">	str2 := <span class="string">"你好，"</span></span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="built_in">len</span>(str1))							<span class="comment">// 11</span></span><br><span class="line">	fmt.Println(<span class="built_in">len</span>(str2))							<span class="comment">// 9</span></span><br><span class="line">	fmt.Println(utf8.RuneCountInString(str2))		<span class="comment">// 3</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>第一个函数输出11很容易理解，第二个函数却输出了9，理论上我们会认为应该是3才对。这是因为Go的字符串都是以UTF-8格式保存，每个中文占据3个字节。Go中计算UTF-8字符串格式的长度应该使用<code>utf8.RuneCountInString</code>。</p>
-<p>字符串遍历方式一：使用字节数组，注意每个中文在UTF-8中占据3个字节</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">str := <span class="string">"hello"</span></span><br><span class="line"><span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(str); i++ &#123;</span><br><span class="line">	fmt.Println(i,str[i])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>字符串遍历方式二：range关键字只是第一种遍历方式的简写</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">str := <span class="string">"你好"</span></span><br><span class="line"><span class="keyword">for</span> i,ch := <span class="keyword">range</span> str &#123;</span><br><span class="line">	fmt.Println(i,ch)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>注意</strong>：由于上述len()函数本身原因，Unicode字符遍历需要使用range。</p>
-<h4 id="3-2-string-函数类型转换"><a href="#3-2-string-函数类型转换" class="headerlink" title="3.2 string()函数类型转换"></a>3.2 string()函数类型转换</h4><p>go的内建函数 <code>string()</code>可以将其他类型转变为字符串类型：</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">num := <span class="number">12</span></span><br><span class="line">fmt.Printf(<span class="string">"%T \n"</span>, <span class="keyword">string</span>(num))			<span class="comment">// string</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="3-3-字符串连接"><a href="#3-3-字符串连接" class="headerlink" title="3.3 字符串连接"></a>3.3 字符串连接</h4><p>使用<code>+</code>能够连接字符串。但是该操作并不高效（因为字符串在Go中是基本类型，每次拼接都是拷贝了内存！）。Go1.10提供了类似Java的StringBuilder机制来进行高效字符串连接：</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"bytes"</span></span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	str1 := <span class="string">"hello "</span></span><br><span class="line">	str2 := <span class="string">" world"</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//创建字节缓冲</span></span><br><span class="line">	<span class="keyword">var</span> stringBuilder bytes.Buffer</span><br><span class="line"></span><br><span class="line">	<span class="comment">//把字符串写入缓冲</span></span><br><span class="line">	stringBuilder.WriteString(str1)</span><br><span class="line">	stringBuilder.WriteString(str2)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//将缓冲以字符串形式输出</span></span><br><span class="line">	fmt.Println(stringBuilder.String())</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在1.10版本前，可以使用bytes.Buffer拼接字符串（因为字符串其实是字节数组）：</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> buf bytes.Buffer</span><br><span class="line">buf.WriteString(<span class="string">"hello"</span>)</span><br><span class="line">fmt.Println(buf.String())</span><br></pre></td></tr></table></figure>
-
-<h2 id="四-strings包相关函数"><a href="#四-strings包相关函数" class="headerlink" title="四 strings包相关函数"></a>四 strings包相关函数</h2><p>strings包提供了字符串的一些常见操作函数：</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//查找s在字符串str中的索引</span></span><br><span class="line">Index(str, s <span class="keyword">string</span>) <span class="keyword">int</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">//判断str是否包含s</span></span><br><span class="line">Contains(str, s <span class="keyword">string</span>) <span class="keyword">bool</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//通过字符串str连接切片 s</span></span><br><span class="line">Join(s []<span class="keyword">string</span>, str <span class="keyword">string</span>) <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//替换字符串str中old字符串为new字符串，n表示替换的次数，小于0全部替换</span></span><br><span class="line">Replace(str,old,<span class="built_in">new</span> <span class="keyword">string</span>,n <span class="keyword">int</span>) <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//字符串str按照s分割，返回切片</span></span><br><span class="line">Splite(str,s <span class="keyword">string</span>)[]<span class="keyword">string</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 去除头部、尾部指定的字符串</span></span><br><span class="line">Trim(s <span class="keyword">string</span>, cutset <span class="keyword">string</span>) <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 去除空格，返回切片</span></span><br><span class="line">Fields(s <span class="keyword">string</span>) []<span class="keyword">string</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="五-strconv包的字符串转换函数"><a href="#五-strconv包的字符串转换函数" class="headerlink" title="五 strconv包的字符串转换函数"></a>五 strconv包的字符串转换函数</h2><p>在Java中遇到 <code>&quot;你好&quot; + 123</code>会将 <code>+</code>转变为连接符。而Go语言要求 <code>+</code> 号两边数据的数据类型必须一致，这使得类似的操作变得比较不便，Go提供了strconv包用于字符串与基本类型之间的转换，常用函数有Append、Format、Parse。  </p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"strconv"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Append 系列函数将整数等转换为字符串后，添加到现有的字节数组中</span></span><br><span class="line">	str1 := <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="number">0</span>, <span class="number">100</span>)</span><br><span class="line">	str1 = strconv.AppendInt(str1, <span class="number">4567</span>, <span class="number">10</span>)</span><br><span class="line">	str1 = strconv.AppendBool(str1, <span class="literal">false</span>)</span><br><span class="line">	str1 = strconv.AppendQuote(str1, <span class="string">"abcdefg"</span>)</span><br><span class="line">	str1 = strconv.AppendQuoteRune(str1, <span class="string">'单'</span>)</span><br><span class="line">	fmt.Println(<span class="keyword">string</span>(str1))						<span class="comment">// 4567false"abcdefg"'单'</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// Format 系列函数把其他类型的转换为字符串</span></span><br><span class="line">	a := strconv.FormatBool(<span class="literal">false</span>)</span><br><span class="line">	b := strconv.FormatFloat(<span class="number">123.23</span>, <span class="string">'g'</span>, <span class="number">12</span>, <span class="number">64</span>)</span><br><span class="line">	c := strconv.FormatInt(<span class="number">1234</span>, <span class="number">10</span>)</span><br><span class="line">	d := strconv.FormatUint(<span class="number">12345</span>, <span class="number">10</span>)</span><br><span class="line">	e := strconv.Itoa(<span class="number">1023</span>)</span><br><span class="line">	fmt.Println(a, b, c, d, e)						<span class="comment">// false 123.23 1234 12345 1023</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// Parse 系列函数把字符串转换为其他类型</span></span><br><span class="line">	f, _ := strconv.ParseBool(<span class="string">"false"</span>)</span><br><span class="line">	g, _ := strconv.ParseFloat(<span class="string">"123.23"</span>, <span class="number">64</span>)</span><br><span class="line">	h, _ := strconv.ParseInt(<span class="string">"1234"</span>, <span class="number">10</span>, <span class="number">64</span>)</span><br><span class="line">	i, _ := strconv.ParseUint(<span class="string">"12345"</span>, <span class="number">10</span>, <span class="number">64</span>)</span><br><span class="line">	j, _ := strconv.Atoi(<span class="string">"1023"</span>)</span><br><span class="line">	fmt.Println(f, g, h, j, i, j)					<span class="comment">// false 123.23 1234 1023 12345 1023</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://img2020.cnblogs.com/blog/1762180/202006/1762180-20200612111216567-1625246241.png" alt=""></p>
-]]></content>
-      <categories>
-        <category>Go学习</category>
-      </categories>
-      <tags>
-        <tag>Go</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Go语言-结构体</title>
     <url>/posts/e208f7cd.html</url>
     <content><![CDATA[<h2 id="一-结构体的基本使用"><a href="#一-结构体的基本使用" class="headerlink" title="一 结构体的基本使用"></a>一 结构体的基本使用</h2><p>结构体可以用来声明新的类型，作为其他类型的属性/字段的容器，如下定义一个学生结构体：</p>
@@ -425,6 +363,60 @@
       </tags>
   </entry>
   <entry>
+    <title>Go语言-常量</title>
+    <url>/posts/f67d829.html</url>
+    <content><![CDATA[<h2 id="一-常量"><a href="#一-常量" class="headerlink" title="一 常量"></a>一 常量</h2><p>常量：在编译阶段就确定下来的值，程序运行时无法改变。   </p>
+<p>定义方式：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> A = <span class="number">3</span></span><br><span class="line"><span class="keyword">const</span> PI <span class="keyword">float32</span> = <span class="number">3.1415</span></span><br><span class="line"><span class="keyword">const</span> mask = <span class="number">1</span> &lt;&lt; <span class="number">3</span>						<span class="comment">//常量与表达式</span></span><br></pre></td></tr></table></figure>
+
+<p>错误写法：常量赋值是一个编译期行为，右边的值不能出现在运行时才能得到结果的值。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> HOME = os.GetEnv(<span class="string">"HOME"</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="二-无类型常量"><a href="#二-无类型常量" class="headerlink" title="二 无类型常量"></a>二 无类型常量</h2><p>一个常量可以有任意一个确定的基础类型，例如int或float64，但是许多常量并没有一个明确的基础类型。  </p>
+<p>无类型常量的作用：</p>
+<ul>
+<li>编译器会为这些没有明确基础类型的数字常量提供比基础类型更高精度的算术运算，可以认为至少有256bit的运算精度</li>
+<li>无类型的常量可以直接用于更多的表达式而不需要显式的类型转换</li>
+</ul>
+<p>示例：math.Pi无类型的浮点数常量，可以直接用于任意需要浮点数或复数的地方：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> x <span class="keyword">float32</span> = math.Pi</span><br><span class="line"><span class="keyword">var</span> y <span class="keyword">float64</span> = math.Pi</span><br><span class="line"><span class="keyword">var</span> z <span class="keyword">complex128</span> = math.Pi</span><br></pre></td></tr></table></figure>
+
+<p>如果math.Pi被确定为特定类型，比如float64，那么结果精度可能会不一样，同时对于需要float32或complex128类型值的地方则会强制需要一个明确的类型转换：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> Pi64 <span class="keyword">float64</span> = math.Pi</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> x <span class="keyword">float32</span> = <span class="keyword">float32</span>(Pi64)</span><br><span class="line"><span class="keyword">var</span> y <span class="keyword">float64</span> = Pi64</span><br><span class="line"><span class="keyword">var</span> z <span class="keyword">complex128</span> = <span class="keyword">complex128</span>(Pi64)</span><br></pre></td></tr></table></figure>
+
+<p>对于常量面值，不同的写法可能会对应不同的类型。例如0、0.0、0i和<code>\u0000</code>虽然有着相同的常量值，但是它们分别对应无类型的整数、无类型的浮点数、无类型的复数和无类型的字符等不同的常量类型。同样，true和false也是无类型的布尔类型，字符串面值常量是无类型的字符串类型。</p>
+<p>前面说过除法运算符/会根据操作数的类型生成对应类型的结果。因此，不同写法的常量除法表达式可能对应不同的结果：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> f <span class="keyword">float64</span> = <span class="number">212</span></span><br><span class="line">fmt.Println((f - <span class="number">32</span>) * <span class="number">5</span> / <span class="number">9</span>)     <span class="comment">// "100"; (f - 32) * 5 is a float64</span></span><br><span class="line">fmt.Println(<span class="number">5</span> / <span class="number">9</span> * (f - <span class="number">32</span>))     <span class="comment">// "0";   5/9 is an untyped integer, 0</span></span><br><span class="line">fmt.Println(<span class="number">5.0</span> / <span class="number">9.0</span> * (f - <span class="number">32</span>)) <span class="comment">// "100"; 5.0/9.0 is an untyped float</span></span><br></pre></td></tr></table></figure>
+
+<p>只有常量可以是无类型的。当一个无类型的常量被赋值给一个变量的时候，就像下面的第一行语句，或者出现在有明确类型的变量声明的右边，如下面的其余三行语句，无类型的常量将会被隐式转换为对应的类型，如果转换合法的话。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> f <span class="keyword">float64</span> = <span class="number">3</span> + <span class="number">0i</span> <span class="comment">// untyped complex -&gt; float64</span></span><br><span class="line">f = <span class="number">2</span>                  <span class="comment">// untyped integer -&gt; float64</span></span><br><span class="line">f = <span class="number">1e123</span>              <span class="comment">// untyped floating-point -&gt; float64</span></span><br><span class="line">f = <span class="string">'a'</span>                <span class="comment">// untyped rune -&gt; float64</span></span><br></pre></td></tr></table></figure>
+
+<p>上面的语句相当于:</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> f <span class="keyword">float64</span> = <span class="keyword">float64</span>(<span class="number">3</span> + <span class="number">0i</span>)</span><br><span class="line">f = <span class="keyword">float64</span>(<span class="number">2</span>)</span><br><span class="line">f = <span class="keyword">float64</span>(<span class="number">1e123</span>)</span><br><span class="line">f = <span class="keyword">float64</span>(<span class="string">'a'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>无论是隐式或显式转换，将一种类型转换为另一种类型都要求目标可以表示原始值。对于浮点数和复数，可能会有舍入处理：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	deadbeef = <span class="number">0xdeadbeef</span> <span class="comment">// untyped int with value 3735928559</span></span><br><span class="line">	a = <span class="keyword">uint32</span>(deadbeef)  <span class="comment">// uint32 with value 3735928559</span></span><br><span class="line">	b = <span class="keyword">float32</span>(deadbeef) <span class="comment">// float32 with value 3735928576 (rounded up)</span></span><br><span class="line">	c = <span class="keyword">float64</span>(deadbeef) <span class="comment">// float64 with value 3735928559 (exact)</span></span><br><span class="line">	d = <span class="keyword">int32</span>(deadbeef)   <span class="comment">// compile error: constant overflows int32</span></span><br><span class="line">	e = <span class="keyword">float64</span>(<span class="number">1e309</span>)    <span class="comment">// compile error: constant overflows float64</span></span><br><span class="line">	f = <span class="keyword">uint</span>(<span class="number">-1</span>)          <span class="comment">// compile error: constant underflows uint</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>对于一个没有显式类型的变量声明（包括简短变量声明），常量的形式将隐式决定变量的默认类型，就像下面的例子：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">i := <span class="number">0</span>      		<span class="comment">// untyped integer;        implicit int(0)</span></span><br><span class="line">r := <span class="string">'\000'</span> 		<span class="comment">// untyped rune;           implicit rune('\000')</span></span><br><span class="line">f := <span class="number">0.0</span>    		<span class="comment">// untyped floating-point; implicit float64(0.0)</span></span><br><span class="line">c := <span class="number">0i</span>     		<span class="comment">// untyped complex;        implicit complex128(0i)</span></span><br></pre></td></tr></table></figure>
+
+<p>注意有一点不同：无类型整数常量转换为int，它的内存大小是不确定的，但是无类型浮点数和复数常量则转换为内存大小明确的float64和complex128。<br>如果不知道浮点数类型的内存大小是很难写出正确的数值算法的，因此Go语言不存在整型类似的不确定内存大小的浮点数和复数类型。  </p>
+<p>如果要给变量一个不同的类型，我们必须显式地将无类型的常量转化为所需的类型，或给声明的变量指定明确的类型，像下面例子这样：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> i = <span class="keyword">int8</span>(<span class="number">0</span>)</span><br><span class="line"><span class="keyword">var</span> i <span class="keyword">int8</span> = <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>当尝试将这些无类型的常量转为一个接口值时（见第7章），这些默认类型将显得尤为重要，因为要靠它们明确接口对应的动态类型。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">fmt.Printf(<span class="string">"%T\n"</span>, <span class="number">0</span>)      		<span class="comment">// "int"</span></span><br><span class="line">fmt.Printf(<span class="string">"%T\n"</span>, <span class="number">0.0</span>)    		<span class="comment">// "float64"</span></span><br><span class="line">fmt.Printf(<span class="string">"%T\n"</span>, <span class="number">0i</span>)     		<span class="comment">// "complex128"</span></span><br><span class="line">fmt.Printf(<span class="string">"%T\n"</span>, <span class="string">'\000'</span>) 		<span class="comment">// "int32" (rune)</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img2020.cnblogs.com/blog/1762180/202006/1762180-20200612111216567-1625246241.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>Go学习</category>
+      </categories>
+      <tags>
+        <tag>Go</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>并发编程-协程</title>
     <url>/posts/daf5a47d.html</url>
     <content><![CDATA[<h2 id="一-理解协程"><a href="#一-理解协程" class="headerlink" title="一 理解协程"></a>一 理解协程</h2><blockquote>
@@ -552,60 +544,6 @@
       <categories>
         <category>Go学习</category>
         <category>并发编程</category>
-      </categories>
-      <tags>
-        <tag>Go</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Go语言-常量</title>
-    <url>/posts/f67d829.html</url>
-    <content><![CDATA[<h2 id="一-常量"><a href="#一-常量" class="headerlink" title="一 常量"></a>一 常量</h2><p>常量：在编译阶段就确定下来的值，程序运行时无法改变。   </p>
-<p>定义方式：</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> A = <span class="number">3</span></span><br><span class="line"><span class="keyword">const</span> PI <span class="keyword">float32</span> = <span class="number">3.1415</span></span><br><span class="line"><span class="keyword">const</span> mask = <span class="number">1</span> &lt;&lt; <span class="number">3</span>						<span class="comment">//常量与表达式</span></span><br></pre></td></tr></table></figure>
-
-<p>错误写法：常量赋值是一个编译期行为，右边的值不能出现在运行时才能得到结果的值。</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> HOME = os.GetEnv(<span class="string">"HOME"</span>)</span><br></pre></td></tr></table></figure>
-
-<h2 id="二-无类型常量"><a href="#二-无类型常量" class="headerlink" title="二 无类型常量"></a>二 无类型常量</h2><p>一个常量可以有任意一个确定的基础类型，例如int或float64，但是许多常量并没有一个明确的基础类型。  </p>
-<p>无类型常量的作用：</p>
-<ul>
-<li>编译器会为这些没有明确基础类型的数字常量提供比基础类型更高精度的算术运算，可以认为至少有256bit的运算精度</li>
-<li>无类型的常量可以直接用于更多的表达式而不需要显式的类型转换</li>
-</ul>
-<p>示例：math.Pi无类型的浮点数常量，可以直接用于任意需要浮点数或复数的地方：</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> x <span class="keyword">float32</span> = math.Pi</span><br><span class="line"><span class="keyword">var</span> y <span class="keyword">float64</span> = math.Pi</span><br><span class="line"><span class="keyword">var</span> z <span class="keyword">complex128</span> = math.Pi</span><br></pre></td></tr></table></figure>
-
-<p>如果math.Pi被确定为特定类型，比如float64，那么结果精度可能会不一样，同时对于需要float32或complex128类型值的地方则会强制需要一个明确的类型转换：</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> Pi64 <span class="keyword">float64</span> = math.Pi</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> x <span class="keyword">float32</span> = <span class="keyword">float32</span>(Pi64)</span><br><span class="line"><span class="keyword">var</span> y <span class="keyword">float64</span> = Pi64</span><br><span class="line"><span class="keyword">var</span> z <span class="keyword">complex128</span> = <span class="keyword">complex128</span>(Pi64)</span><br></pre></td></tr></table></figure>
-
-<p>对于常量面值，不同的写法可能会对应不同的类型。例如0、0.0、0i和<code>\u0000</code>虽然有着相同的常量值，但是它们分别对应无类型的整数、无类型的浮点数、无类型的复数和无类型的字符等不同的常量类型。同样，true和false也是无类型的布尔类型，字符串面值常量是无类型的字符串类型。</p>
-<p>前面说过除法运算符/会根据操作数的类型生成对应类型的结果。因此，不同写法的常量除法表达式可能对应不同的结果：</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> f <span class="keyword">float64</span> = <span class="number">212</span></span><br><span class="line">fmt.Println((f - <span class="number">32</span>) * <span class="number">5</span> / <span class="number">9</span>)     <span class="comment">// "100"; (f - 32) * 5 is a float64</span></span><br><span class="line">fmt.Println(<span class="number">5</span> / <span class="number">9</span> * (f - <span class="number">32</span>))     <span class="comment">// "0";   5/9 is an untyped integer, 0</span></span><br><span class="line">fmt.Println(<span class="number">5.0</span> / <span class="number">9.0</span> * (f - <span class="number">32</span>)) <span class="comment">// "100"; 5.0/9.0 is an untyped float</span></span><br></pre></td></tr></table></figure>
-
-<p>只有常量可以是无类型的。当一个无类型的常量被赋值给一个变量的时候，就像下面的第一行语句，或者出现在有明确类型的变量声明的右边，如下面的其余三行语句，无类型的常量将会被隐式转换为对应的类型，如果转换合法的话。</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> f <span class="keyword">float64</span> = <span class="number">3</span> + <span class="number">0i</span> <span class="comment">// untyped complex -&gt; float64</span></span><br><span class="line">f = <span class="number">2</span>                  <span class="comment">// untyped integer -&gt; float64</span></span><br><span class="line">f = <span class="number">1e123</span>              <span class="comment">// untyped floating-point -&gt; float64</span></span><br><span class="line">f = <span class="string">'a'</span>                <span class="comment">// untyped rune -&gt; float64</span></span><br></pre></td></tr></table></figure>
-
-<p>上面的语句相当于:</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> f <span class="keyword">float64</span> = <span class="keyword">float64</span>(<span class="number">3</span> + <span class="number">0i</span>)</span><br><span class="line">f = <span class="keyword">float64</span>(<span class="number">2</span>)</span><br><span class="line">f = <span class="keyword">float64</span>(<span class="number">1e123</span>)</span><br><span class="line">f = <span class="keyword">float64</span>(<span class="string">'a'</span>)</span><br></pre></td></tr></table></figure>
-
-<p>无论是隐式或显式转换，将一种类型转换为另一种类型都要求目标可以表示原始值。对于浮点数和复数，可能会有舍入处理：</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	deadbeef = <span class="number">0xdeadbeef</span> <span class="comment">// untyped int with value 3735928559</span></span><br><span class="line">	a = <span class="keyword">uint32</span>(deadbeef)  <span class="comment">// uint32 with value 3735928559</span></span><br><span class="line">	b = <span class="keyword">float32</span>(deadbeef) <span class="comment">// float32 with value 3735928576 (rounded up)</span></span><br><span class="line">	c = <span class="keyword">float64</span>(deadbeef) <span class="comment">// float64 with value 3735928559 (exact)</span></span><br><span class="line">	d = <span class="keyword">int32</span>(deadbeef)   <span class="comment">// compile error: constant overflows int32</span></span><br><span class="line">	e = <span class="keyword">float64</span>(<span class="number">1e309</span>)    <span class="comment">// compile error: constant overflows float64</span></span><br><span class="line">	f = <span class="keyword">uint</span>(<span class="number">-1</span>)          <span class="comment">// compile error: constant underflows uint</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-<p>对于一个没有显式类型的变量声明（包括简短变量声明），常量的形式将隐式决定变量的默认类型，就像下面的例子：</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">i := <span class="number">0</span>      		<span class="comment">// untyped integer;        implicit int(0)</span></span><br><span class="line">r := <span class="string">'\000'</span> 		<span class="comment">// untyped rune;           implicit rune('\000')</span></span><br><span class="line">f := <span class="number">0.0</span>    		<span class="comment">// untyped floating-point; implicit float64(0.0)</span></span><br><span class="line">c := <span class="number">0i</span>     		<span class="comment">// untyped complex;        implicit complex128(0i)</span></span><br></pre></td></tr></table></figure>
-
-<p>注意有一点不同：无类型整数常量转换为int，它的内存大小是不确定的，但是无类型浮点数和复数常量则转换为内存大小明确的float64和complex128。<br>如果不知道浮点数类型的内存大小是很难写出正确的数值算法的，因此Go语言不存在整型类似的不确定内存大小的浮点数和复数类型。  </p>
-<p>如果要给变量一个不同的类型，我们必须显式地将无类型的常量转化为所需的类型，或给声明的变量指定明确的类型，像下面例子这样：</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> i = <span class="keyword">int8</span>(<span class="number">0</span>)</span><br><span class="line"><span class="keyword">var</span> i <span class="keyword">int8</span> = <span class="number">0</span></span><br></pre></td></tr></table></figure>
-
-<p>当尝试将这些无类型的常量转为一个接口值时（见第7章），这些默认类型将显得尤为重要，因为要靠它们明确接口对应的动态类型。</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">fmt.Printf(<span class="string">"%T\n"</span>, <span class="number">0</span>)      		<span class="comment">// "int"</span></span><br><span class="line">fmt.Printf(<span class="string">"%T\n"</span>, <span class="number">0.0</span>)    		<span class="comment">// "float64"</span></span><br><span class="line">fmt.Printf(<span class="string">"%T\n"</span>, <span class="number">0i</span>)     		<span class="comment">// "complex128"</span></span><br><span class="line">fmt.Printf(<span class="string">"%T\n"</span>, <span class="string">'\000'</span>) 		<span class="comment">// "int32" (rune)</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://img2020.cnblogs.com/blog/1762180/202006/1762180-20200612111216567-1625246241.png" alt=""></p>
-]]></content>
-      <categories>
-        <category>Go学习</category>
       </categories>
       <tags>
         <tag>Go</tag>
@@ -961,51 +899,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Go语言-时间操作</title>
-    <url>/posts/6014accc.html</url>
-    <content><![CDATA[<h2 id="一-时间操作"><a href="#一-时间操作" class="headerlink" title="一 时间操作"></a>一 时间操作</h2><h3 id="1-1-创建时间"><a href="#1-1-创建时间" class="headerlink" title="1.1 创建时间"></a>1.1 创建时间</h3><p>Golang中时间操作位于 time 包中，常见操作有：</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 当前时间</span></span><br><span class="line">nowTime := time.Now()</span><br><span class="line">fmt.Printf(<span class="string">"当前时间为：%T\n"</span>, nowTime)	<span class="comment">// 其类型是 time.Time</span></span><br><span class="line">fmt.Println(nowTime)							<span class="comment">// 2019-01-01 13:50:07.522712 +0800 CST m=+0.000138178</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 自定义时间</span></span><br><span class="line">customTime := time.Date(<span class="number">2008</span>, <span class="number">7</span>, <span class="number">15</span>, <span class="number">13</span>, <span class="number">30</span>,<span class="number">0</span>,<span class="number">0</span>, time.Local)</span><br><span class="line">fmt.Println(customTime)							<span class="comment">// 2008-07-15 13:30:00 +0800 CST</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="1-2-时间格式化与解析"><a href="#1-2-时间格式化与解析" class="headerlink" title="1.2 时间格式化与解析"></a>1.2 时间格式化与解析</h3><p>Go的时间格式化必须传入Go的生日：<code>Mon Jan 2 15:04:05 -0700 MST 2006</code></p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">nowTime := time.Now()</span><br><span class="line">stringTime := nowTime.Format(<span class="string">"2006年1月2日 15:04:05"</span>)</span><br><span class="line">fmt.Println(stringTime)			<span class="comment">// 2019年01月01日 13:55:30</span></span><br></pre></td></tr></table></figure>
-
-<p>Go的时间解析：</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">   stringTime := <span class="string">"2019-01-01 15:03:01"</span></span><br><span class="line">objTime,_ := time.Parse(<span class="string">"2006-01-02 15:04:05"</span>,stringTime)</span><br><span class="line">fmt.Println(objTime)		<span class="comment">// 2019-01-01 15:03:01 +0000 UTC</span></span><br></pre></td></tr></table></figure>
-
-<p>注意：这些方法的参数模板必须与时间一一对应，否则报错！</p>
-<h3 id="1-3-获取-年-月-日"><a href="#1-3-获取-年-月-日" class="headerlink" title="1.3 获取 年 月 日"></a>1.3 获取 年 月 日</h3><figure class="highlight go"><table><tr><td class="code"><pre><span class="line">   nowTime := time.Now()</span><br><span class="line"></span><br><span class="line">year, month, day := nowTime.Date()</span><br><span class="line">fmt.Println(year, month, day)		<span class="comment">// 2019 November 01</span></span><br><span class="line"></span><br><span class="line">hour, min, sec := nowTime.Clock()</span><br><span class="line">fmt.Println(hour, min, sec)</span><br><span class="line"></span><br><span class="line">fmt.Println(nowTime.Year())</span><br><span class="line">fmt.Println(nowTime.Month())</span><br><span class="line">fmt.Println(nowTime.Hour())</span><br><span class="line"></span><br><span class="line">fmt.Println(nowTime.YearDay())		<span class="comment">// 指今年一共过了多少天</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="1-4-时间戳"><a href="#1-4-时间戳" class="headerlink" title="1.4 时间戳"></a>1.4 时间戳</h3><p>时间戳是指计算时间距离 1970年1月1日的秒数：</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">nowTime := time.Now()</span><br><span class="line">fmt.Println(nowTime.Unix())</span><br></pre></td></tr></table></figure>
-
-<h3 id="1-5-时间间隔"><a href="#1-5-时间间隔" class="headerlink" title="1.5 时间间隔"></a>1.5 时间间隔</h3><figure class="highlight go"><table><tr><td class="code"><pre><span class="line">nowTime := time.Now()</span><br><span class="line">fmt.Println(nowTime.Add(time.Second * <span class="number">10</span>))  				<span class="comment">// 10秒后</span></span><br><span class="line">   fmt.Println(nowTime.AddDate(<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>))	<span class="comment">// 1年后</span></span><br></pre></td></tr></table></figure>
-
-<p>贴士：</p>
-<ul>
-<li>传入负数则是往前计算</li>
-<li>Sub()函数可以用来计算两个时间的差值</li>
-</ul>
-<h3 id="1-6-时间睡眠"><a href="#1-6-时间睡眠" class="headerlink" title="1.6 时间睡眠"></a>1.6 时间睡眠</h3><figure class="highlight go"><table><tr><td class="code"><pre><span class="line">time.Sleep(time.Second * <span class="number">3</span>)	<span class="comment">// 程序睡眠三秒钟</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="二-时间中的通道操作（定时器）"><a href="#二-时间中的通道操作（定时器）" class="headerlink" title="二 时间中的通道操作（定时器）"></a>二 时间中的通道操作（定时器）</h2><p>标准库中的Timer可以让用户自定义一个定时器，在用对select处理多个channel的超时、单channel读写的超时等情形时很方便：</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">timer := time.NewTimer(time.Second * <span class="number">3</span>)		<span class="comment">// 类型为 *time.Timer</span></span><br><span class="line">ch := timer.C								<span class="comment">// timer内部包含一个通道</span></span><br><span class="line">fmt.Println(&lt;-ch)							<span class="comment">// 3秒后，通道内有了数据，可以取出</span></span><br></pre></td></tr></table></figure>
-
-<p>配合协程：</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">timer := time.NewTimer(time.Second * <span class="number">3</span>)		<span class="comment">// 类型为 *time.Timer</span></span><br><span class="line"><span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">	&lt;- timer.C</span><br><span class="line">	fmt.Println(<span class="string">"timer 结束"</span>)</span><br><span class="line">&#125;()</span><br><span class="line"></span><br><span class="line">time.Sleep(time.Second * <span class="number">5</span>)</span><br><span class="line">flag := timer.Stop()			<span class="comment">// 取消定时器</span></span><br><span class="line">   fmt.Println(flag)				<span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-
-<p>time.After函数的使用：</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">ch := time.After(time.Second * <span class="number">3</span>)		<span class="comment">// 底层其实是 new Timer(d).C</span></span><br><span class="line">newTime := &lt;-ch			<span class="comment">// 阻塞3秒</span></span><br><span class="line">fmt.Println(newTime)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://img2020.cnblogs.com/blog/1762180/202006/1762180-20200612111216567-1625246241.png" alt=""></p>
-]]></content>
-      <categories>
-        <category>Go学习</category>
-      </categories>
-      <tags>
-        <tag>Go</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Go语言-文件的读操作</title>
     <url>/posts/d77a10bf.html</url>
     <content><![CDATA[<h2 id="一-文件读取"><a href="#一-文件读取" class="headerlink" title="一 文件读取"></a>一 文件读取</h2><p>文件读写的接口位于io包，file文件类是这些接口的实现类。</p>
@@ -1144,6 +1037,51 @@
       </tags>
   </entry>
   <entry>
+    <title>Go语言-时间操作</title>
+    <url>/posts/6014accc.html</url>
+    <content><![CDATA[<h2 id="一-时间操作"><a href="#一-时间操作" class="headerlink" title="一 时间操作"></a>一 时间操作</h2><h3 id="1-1-创建时间"><a href="#1-1-创建时间" class="headerlink" title="1.1 创建时间"></a>1.1 创建时间</h3><p>Golang中时间操作位于 time 包中，常见操作有：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 当前时间</span></span><br><span class="line">nowTime := time.Now()</span><br><span class="line">fmt.Printf(<span class="string">"当前时间为：%T\n"</span>, nowTime)	<span class="comment">// 其类型是 time.Time</span></span><br><span class="line">fmt.Println(nowTime)							<span class="comment">// 2019-01-01 13:50:07.522712 +0800 CST m=+0.000138178</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 自定义时间</span></span><br><span class="line">customTime := time.Date(<span class="number">2008</span>, <span class="number">7</span>, <span class="number">15</span>, <span class="number">13</span>, <span class="number">30</span>,<span class="number">0</span>,<span class="number">0</span>, time.Local)</span><br><span class="line">fmt.Println(customTime)							<span class="comment">// 2008-07-15 13:30:00 +0800 CST</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2-时间格式化与解析"><a href="#1-2-时间格式化与解析" class="headerlink" title="1.2 时间格式化与解析"></a>1.2 时间格式化与解析</h3><p>Go的时间格式化必须传入Go的生日：<code>Mon Jan 2 15:04:05 -0700 MST 2006</code></p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">nowTime := time.Now()</span><br><span class="line">stringTime := nowTime.Format(<span class="string">"2006年1月2日 15:04:05"</span>)</span><br><span class="line">fmt.Println(stringTime)			<span class="comment">// 2019年01月01日 13:55:30</span></span><br></pre></td></tr></table></figure>
+
+<p>Go的时间解析：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">   stringTime := <span class="string">"2019-01-01 15:03:01"</span></span><br><span class="line">objTime,_ := time.Parse(<span class="string">"2006-01-02 15:04:05"</span>,stringTime)</span><br><span class="line">fmt.Println(objTime)		<span class="comment">// 2019-01-01 15:03:01 +0000 UTC</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：这些方法的参数模板必须与时间一一对应，否则报错！</p>
+<h3 id="1-3-获取-年-月-日"><a href="#1-3-获取-年-月-日" class="headerlink" title="1.3 获取 年 月 日"></a>1.3 获取 年 月 日</h3><figure class="highlight go"><table><tr><td class="code"><pre><span class="line">   nowTime := time.Now()</span><br><span class="line"></span><br><span class="line">year, month, day := nowTime.Date()</span><br><span class="line">fmt.Println(year, month, day)		<span class="comment">// 2019 November 01</span></span><br><span class="line"></span><br><span class="line">hour, min, sec := nowTime.Clock()</span><br><span class="line">fmt.Println(hour, min, sec)</span><br><span class="line"></span><br><span class="line">fmt.Println(nowTime.Year())</span><br><span class="line">fmt.Println(nowTime.Month())</span><br><span class="line">fmt.Println(nowTime.Hour())</span><br><span class="line"></span><br><span class="line">fmt.Println(nowTime.YearDay())		<span class="comment">// 指今年一共过了多少天</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-4-时间戳"><a href="#1-4-时间戳" class="headerlink" title="1.4 时间戳"></a>1.4 时间戳</h3><p>时间戳是指计算时间距离 1970年1月1日的秒数：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">nowTime := time.Now()</span><br><span class="line">fmt.Println(nowTime.Unix())</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-5-时间间隔"><a href="#1-5-时间间隔" class="headerlink" title="1.5 时间间隔"></a>1.5 时间间隔</h3><figure class="highlight go"><table><tr><td class="code"><pre><span class="line">nowTime := time.Now()</span><br><span class="line">fmt.Println(nowTime.Add(time.Second * <span class="number">10</span>))  				<span class="comment">// 10秒后</span></span><br><span class="line">   fmt.Println(nowTime.AddDate(<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>))	<span class="comment">// 1年后</span></span><br></pre></td></tr></table></figure>
+
+<p>贴士：</p>
+<ul>
+<li>传入负数则是往前计算</li>
+<li>Sub()函数可以用来计算两个时间的差值</li>
+</ul>
+<h3 id="1-6-时间睡眠"><a href="#1-6-时间睡眠" class="headerlink" title="1.6 时间睡眠"></a>1.6 时间睡眠</h3><figure class="highlight go"><table><tr><td class="code"><pre><span class="line">time.Sleep(time.Second * <span class="number">3</span>)	<span class="comment">// 程序睡眠三秒钟</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="二-时间中的通道操作（定时器）"><a href="#二-时间中的通道操作（定时器）" class="headerlink" title="二 时间中的通道操作（定时器）"></a>二 时间中的通道操作（定时器）</h2><p>标准库中的Timer可以让用户自定义一个定时器，在用对select处理多个channel的超时、单channel读写的超时等情形时很方便：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">timer := time.NewTimer(time.Second * <span class="number">3</span>)		<span class="comment">// 类型为 *time.Timer</span></span><br><span class="line">ch := timer.C								<span class="comment">// timer内部包含一个通道</span></span><br><span class="line">fmt.Println(&lt;-ch)							<span class="comment">// 3秒后，通道内有了数据，可以取出</span></span><br></pre></td></tr></table></figure>
+
+<p>配合协程：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">timer := time.NewTimer(time.Second * <span class="number">3</span>)		<span class="comment">// 类型为 *time.Timer</span></span><br><span class="line"><span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">	&lt;- timer.C</span><br><span class="line">	fmt.Println(<span class="string">"timer 结束"</span>)</span><br><span class="line">&#125;()</span><br><span class="line"></span><br><span class="line">time.Sleep(time.Second * <span class="number">5</span>)</span><br><span class="line">flag := timer.Stop()			<span class="comment">// 取消定时器</span></span><br><span class="line">   fmt.Println(flag)				<span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<p>time.After函数的使用：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">ch := time.After(time.Second * <span class="number">3</span>)		<span class="comment">// 底层其实是 new Timer(d).C</span></span><br><span class="line">newTime := &lt;-ch			<span class="comment">// 阻塞3秒</span></span><br><span class="line">fmt.Println(newTime)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img2020.cnblogs.com/blog/1762180/202006/1762180-20200612111216567-1625246241.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>Go学习</category>
+      </categories>
+      <tags>
+        <tag>Go</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Go语言-类型转换</title>
     <url>/posts/86e0d47b.html</url>
     <content><![CDATA[<h2 id="一-数据类型转换"><a href="#一-数据类型转换" class="headerlink" title="一 数据类型转换"></a>一 数据类型转换</h2><h4 id="1-1-显式转换"><a href="#1-1-显式转换" class="headerlink" title="1.1 显式转换"></a>1.1 显式转换</h4><p>Go在不同类型的变量之间赋值时需要显式转换。也就是说Golang中数据类型不能自动转换。</p>
@@ -1204,66 +1142,6 @@
       </categories>
       <tags>
         <tag>Go</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>设计模式——单例模式</title>
-    <url>/posts/1ca42a2e.html</url>
-    <content><![CDATA[<h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><p>   今天就开始分析第一个设计模式，该模式是：【单例模式】，英文名称：Singleton Pattern，这个模式很简单，一个类型只需要一个实例，他是创建型的设计模式。为什么叫“创建型”设计模式呢，因为他们有分类。当然了分类的方式不一样，分类的结果也就不一样。<br>   从目的来看：</p>
-<pre><code>-创建型（Creational）模式：负责对象创建
-
--结构型（Structural）模式：处理类与对象间的组合
-
--行为型（Behavioral）模式：类与对象交互中的职责分配</code></pre><p>   从范围来看：</p>
-<pre><code>-类模式处理类与子类的静态关系
-
--对象模式处理对象间的动态关系</code></pre><p>  以上就是分类的方式，我们按大多数的分类，采用“从目的来看”的分类来对设计模式进行分类。</p>
-<h3 id="1-定义："><a href="#1-定义：" class="headerlink" title="1.定义："></a>1.定义：</h3><h4 id="1-1-动机（Motivate）"><a href="#1-1-动机（Motivate）" class="headerlink" title="1.1 动机（Motivate）"></a>1.1 动机（Motivate）</h4><p>   在软件系统中，经常有这样一些特殊的类，必须保证它们在系统中只存在一个实例，才能确保它们的逻辑正确性、以及良好的效率。</p>
-<h4 id="1-2、意图（Intent）"><a href="#1-2、意图（Intent）" class="headerlink" title="1.2、意图（Intent）"></a>1.2、意图（Intent）</h4><p>   某一个类只有一个实例，并且这个实例是在类内部进行实例化，并向整个系统提供该实例。</p>
-<h4 id="1-3、结构图（Structure）"><a href="#1-3、结构图（Structure）" class="headerlink" title="1.3、结构图（Structure）"></a>1.3、结构图（Structure）</h4><p><img src="https://img2020.cnblogs.com/blog/1762180/202006/1762180-20200617194552021-2132476937.gif" alt=""></p>
-<h4 id="1-4、单例模式的组成"><a href="#1-4、单例模式的组成" class="headerlink" title="1.4、单例模式的组成"></a>1.4、单例模式的组成</h4><p>   单件实例（Singleton）：这个模式里面只有一个类型，就是Singleton类型，并且这个类只有一个实例，可以通过Instance()方法获取该类型的实例。</p>
-<h3 id="2-单例模式的通用代码："><a href="#2-单例模式的通用代码：" class="headerlink" title="2.单例模式的通用代码："></a>2.单例模式的通用代码：</h3><pre><code>public sealed class Singleton
-   {
-       private static sealed Singleton _singleton = new Singleton();
-       private Singleton()
-       { }
-
-       public static Singleton GetInstance()
-       {
-           return _singleton;
-       }
-
-       public static void DoSomething()
-       { }
-
-   }</code></pre><h3 id="3-优点："><a href="#3-优点：" class="headerlink" title="3.优点："></a>3.优点：</h3><pre><code>（1）、实例控制：Singleton 会阻止其他对象实例化其自己的 Singleton 对象的副本，从而确保所有对象都访问唯一实例
-（2）、灵活性：因为类控制了实例化过程，所以类可以更加灵活修改实例化过程</code></pre><h3 id="4-单例模式使用场景"><a href="#4-单例模式使用场景" class="headerlink" title="4.单例模式使用场景"></a>4.单例模式使用场景</h3><pre><code>（1）、当类只能有一个实例而且客户可以从一个众所周知的访问点访问它时。
-（2）、当这个唯一实例应该是通过子类化可扩展的，并且客户应该无需更改代码就能使用一个扩展的实例时。</code></pre><h3 id="5-线程安全的单例模式："><a href="#5-线程安全的单例模式：" class="headerlink" title="5.线程安全的单例模式："></a>5.线程安全的单例模式：</h3><p>总结<br>  本质：内存只能有一个对象；<br>  使用场景：定时器；计数器；一个项目只要一个共享访问点和共享数据；创建对象消耗资源比较多，如IO操作和数据库读取注意；</p>
-<p>　　线程安全的单例模式代码：</p>
-<pre><code>public sealed class Singleton
-{
-     private static Singleton _singleton = null;
-     private static readonly object _synLock = new object();
-
-     private Singleton(){}
-
-     public static Singleton GetInstance()
-     {
-          lock (_synLock) 
-          {
-               if (_singleton==null)  
-                    _singleton = new Singleton();
-
-               return _singleton;
-          }
-     } 
-}</code></pre>]]></content>
-      <categories>
-        <category>C#</category>
-        <category>设计模式</category>
-      </categories>
-      <tags>
-        <tag>设计模式</tag>
       </tags>
   </entry>
   <entry>
@@ -1339,6 +1217,66 @@
       </categories>
       <tags>
         <tag>Go</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式——单例模式</title>
+    <url>/posts/1ca42a2e.html</url>
+    <content><![CDATA[<h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><p>   今天就开始分析第一个设计模式，该模式是：【单例模式】，英文名称：Singleton Pattern，这个模式很简单，一个类型只需要一个实例，他是创建型的设计模式。为什么叫“创建型”设计模式呢，因为他们有分类。当然了分类的方式不一样，分类的结果也就不一样。<br>   从目的来看：</p>
+<pre><code>-创建型（Creational）模式：负责对象创建
+
+-结构型（Structural）模式：处理类与对象间的组合
+
+-行为型（Behavioral）模式：类与对象交互中的职责分配</code></pre><p>   从范围来看：</p>
+<pre><code>-类模式处理类与子类的静态关系
+
+-对象模式处理对象间的动态关系</code></pre><p>  以上就是分类的方式，我们按大多数的分类，采用“从目的来看”的分类来对设计模式进行分类。</p>
+<h3 id="1-定义："><a href="#1-定义：" class="headerlink" title="1.定义："></a>1.定义：</h3><h4 id="1-1-动机（Motivate）"><a href="#1-1-动机（Motivate）" class="headerlink" title="1.1 动机（Motivate）"></a>1.1 动机（Motivate）</h4><p>   在软件系统中，经常有这样一些特殊的类，必须保证它们在系统中只存在一个实例，才能确保它们的逻辑正确性、以及良好的效率。</p>
+<h4 id="1-2、意图（Intent）"><a href="#1-2、意图（Intent）" class="headerlink" title="1.2、意图（Intent）"></a>1.2、意图（Intent）</h4><p>   某一个类只有一个实例，并且这个实例是在类内部进行实例化，并向整个系统提供该实例。</p>
+<h4 id="1-3、结构图（Structure）"><a href="#1-3、结构图（Structure）" class="headerlink" title="1.3、结构图（Structure）"></a>1.3、结构图（Structure）</h4><p><img src="https://img2020.cnblogs.com/blog/1762180/202006/1762180-20200617194552021-2132476937.gif" alt=""></p>
+<h4 id="1-4、单例模式的组成"><a href="#1-4、单例模式的组成" class="headerlink" title="1.4、单例模式的组成"></a>1.4、单例模式的组成</h4><p>   单件实例（Singleton）：这个模式里面只有一个类型，就是Singleton类型，并且这个类只有一个实例，可以通过Instance()方法获取该类型的实例。</p>
+<h3 id="2-单例模式的通用代码："><a href="#2-单例模式的通用代码：" class="headerlink" title="2.单例模式的通用代码："></a>2.单例模式的通用代码：</h3><pre><code>public sealed class Singleton
+   {
+       private static sealed Singleton _singleton = new Singleton();
+       private Singleton()
+       { }
+
+       public static Singleton GetInstance()
+       {
+           return _singleton;
+       }
+
+       public static void DoSomething()
+       { }
+
+   }</code></pre><h3 id="3-优点："><a href="#3-优点：" class="headerlink" title="3.优点："></a>3.优点：</h3><pre><code>（1）、实例控制：Singleton 会阻止其他对象实例化其自己的 Singleton 对象的副本，从而确保所有对象都访问唯一实例
+（2）、灵活性：因为类控制了实例化过程，所以类可以更加灵活修改实例化过程</code></pre><h3 id="4-单例模式使用场景"><a href="#4-单例模式使用场景" class="headerlink" title="4.单例模式使用场景"></a>4.单例模式使用场景</h3><pre><code>（1）、当类只能有一个实例而且客户可以从一个众所周知的访问点访问它时。
+（2）、当这个唯一实例应该是通过子类化可扩展的，并且客户应该无需更改代码就能使用一个扩展的实例时。</code></pre><h3 id="5-线程安全的单例模式："><a href="#5-线程安全的单例模式：" class="headerlink" title="5.线程安全的单例模式："></a>5.线程安全的单例模式：</h3><p>总结<br>  本质：内存只能有一个对象；<br>  使用场景：定时器；计数器；一个项目只要一个共享访问点和共享数据；创建对象消耗资源比较多，如IO操作和数据库读取注意；</p>
+<p>　　线程安全的单例模式代码：</p>
+<pre><code>public sealed class Singleton
+{
+     private static Singleton _singleton = null;
+     private static readonly object _synLock = new object();
+
+     private Singleton(){}
+
+     public static Singleton GetInstance()
+     {
+          lock (_synLock) 
+          {
+               if (_singleton==null)  
+                    _singleton = new Singleton();
+
+               return _singleton;
+          }
+     } 
+}</code></pre>]]></content>
+      <categories>
+        <category>C#</category>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
       </tags>
   </entry>
   <entry>
@@ -1419,106 +1357,62 @@
       </tags>
   </entry>
   <entry>
-    <title>并发编程-多进程</title>
-    <url>/posts/b49d9315.html</url>
-    <content><![CDATA[<h2 id="一-进程概念"><a href="#一-进程概念" class="headerlink" title="一  进程概念"></a>一  进程概念</h2><blockquote>
-<p>进程：就是二进制可执行文件在计算机内存中的运行实例，可以简单理解为：一个.exe文件是个类，进程就是该类new出来的实例。<br>进程是操作系统最小的资源分配单位（如虚拟内存资源），所有代码都是在进程中执行的。 </p>
-</blockquote>
-<p>为了方便管理进程，每个进程都有自己的描述符，是个复杂的数据结构，我们称之为<strong>进程控制块</strong>，即PCB(Process Control Block)。  </p>
-<p>PCB中保存了进程的管理、控制信息等数据，主要包含字段有：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">进程ID（PID）：进程的唯一标识符 ，是一个非负整数的顺序编号</span><br><span class="line">父进程ID（PPID）：当前进程的父进程ID</span><br><span class="line">文件描述符表：即很多指向file接否提的指针</span><br><span class="line">进程状态：就绪、运行、挂起、停止等状态</span><br><span class="line">虚拟地址范围</span><br><span class="line">访问权限 </span><br><span class="line">当前工作目录</span><br><span class="line">用户id和组id</span><br><span class="line">会话和进程组</span><br><span class="line">&#96;&#96;&#96; </span><br><span class="line"></span><br><span class="line">贴士：进程ID是可以重用的，当进程ID达到最大限额值时，内核会从头开始查找闲置的进程ID并使用最先找到的那一个作为新进程的ID</span><br><span class="line"></span><br><span class="line">## 二 进程创建</span><br><span class="line"></span><br><span class="line">Unix系统在启动后，会首先运行一个名为 init 的进程，其PID 为 1。该进程是所有其他进程的父进程。  </span><br><span class="line"></span><br><span class="line">Unix操作系统通过 &#96;fork()&#96; 函数能够创建多个子进程，从而能够提升计算机资源的利用率。此时调用者称为父进程，被创造出来的进程称为子进程。  </span><br><span class="line">- 每个子进程都是源自它的父进程的一个副本，它会获得父进程的数据段、堆、栈的拷贝，并与父进程共享代码段。  </span><br><span class="line">- 子进程对自己副本的修改对其父进程和兄弟进程都是不可见的，反之亦然。  </span><br><span class="line"></span><br><span class="line">创建的子进程可以直接开始运行，但是也可以通过 &#96;exec()&#96; 函数来加载一个全新的程序，此时子进程会丢弃现存的程序文本段，为加载的新程序重新创建栈、数据段、堆，我们对这一个过程称为执行一个新程序。  </span><br><span class="line"></span><br><span class="line">贴士：exec并不是1个函数, 是一系列 exec 开头的函数，作用都是执行新程序。 </span><br><span class="line"></span><br><span class="line">C语言示例如下：</span><br><span class="line">&#96;&#96;&#96;c</span><br><span class="line">#include &lt;stdio.h&gt; </span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line"> </span><br><span class="line">int main()&#123;</span><br><span class="line"></span><br><span class="line">    pid_t pid;</span><br><span class="line">    int r;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 创建子进程</span><br><span class="line">    pid &#x3D; fork();                     </span><br><span class="line">    if (pid &#x3D;&#x3D; -1)&#123;                   &#x2F;&#x2F; 发生错误</span><br><span class="line">        perror(&quot;fork发生错误 &quot;);</span><br><span class="line">        exit(1);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    &#x2F;&#x2F; 返回值大于0时是父进程</span><br><span class="line">    if(pid &gt; 0)&#123;                        </span><br><span class="line">        printf(&quot;父进程: pid &#x3D; %d, ppid &#x3D; %d \n&quot;, getpid(),getppid());        &#x2F;&#x2F; 父进程执行动作</span><br><span class="line">        sleep(3);                       &#x2F;&#x2F; 父进程睡眠，防止子进程还没运行完毕，父进程却直接退出了</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    &#x2F;&#x2F; 返回值为0的是子进程</span><br><span class="line">    if(pid &#x3D;&#x3D; 0)&#123;   </span><br><span class="line"></span><br><span class="line">        printf(&quot;子进程: pid &#x3D; %d , ppid &#x3D; %d \n&quot;, getpid(),getppid());     &#x2F;&#x2F; 子进程执行动作</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 子进程加载一个新程序：系统自带的 echo程序，输出 hello world!</span><br><span class="line">        char * execv_str[] &#x3D; &#123;&quot;echo&quot;, &quot;hello world!&quot;,NULL&#125;;</span><br><span class="line">        int r &#x3D; execv(&quot;&#x2F;bin&#x2F;echo&quot;, execv_str);    &#x2F;&#x2F; 笔者的是mac，linux上为： &quot;&#x2F;usr&#x2F;bin&#x2F;echo&quot;  </span><br><span class="line">		if (r &lt;0 )&#123;</span><br><span class="line">			perror(&quot;error on exec&quot;);</span><br><span class="line">			exit(0);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <title>Go语言-字符串</title>
+    <url>/posts/a9fd7819.html</url>
+    <content><![CDATA[<h2 id="一-字符"><a href="#一-字符" class="headerlink" title="一 字符"></a>一 字符</h2><p>Golang 中没有专门的字符类型，如果要存储单个字符(字母)，一般使用 byte 来保存，且使用单引号包裹。  </p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> c1 <span class="keyword">byte</span> = <span class="string">'a'</span></span><br><span class="line"><span class="keyword">var</span> c2 <span class="keyword">byte</span> = <span class="string">'0'</span></span><br><span class="line">fmt.Println(<span class="string">"c1="</span>, c1)					<span class="comment">//输出 97   </span></span><br><span class="line">fmt.Println(<span class="string">"c2="</span>, c2)					<span class="comment">//输出48</span></span><br><span class="line">fmt.Printf(<span class="string">"c1=%c,c2=%c\n"</span>, c1, c2)	    <span class="comment">//输出原值 a 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//var c3 byte = '北'</span></span><br><span class="line"><span class="comment">//fmt.Printf("c3=%c", c3)					// 溢出错误:overflows byte</span></span><br></pre></td></tr></table></figure>
 
-<p>在 Go 语言中，没有直接提供 fork 系统调用的封装，而是将 fork 和 execve 合二为一，具体信息可以参见Go的os包。</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"os"</span></span><br><span class="line">	<span class="string">"time"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="string">"当前进程ID："</span>, os.Getpid())</span><br><span class="line"></span><br><span class="line">	procAttr := &amp;os.ProcAttr&#123;</span><br><span class="line">		Files: []*os.File&#123;os.Stdin, os.Stdout, os.Stderr&#125;,</span><br><span class="line">	&#125;</span><br><span class="line">	process, err := os.StartProcess(<span class="string">"/bin/echo"</span>, []<span class="keyword">string</span>&#123;<span class="string">""</span>, <span class="string">"hello,world!"</span>&#125;, procAttr)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"进程启动失败:"</span>, err)</span><br><span class="line">		os.Exit(<span class="number">2</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"子进程ID："</span>, process.Pid)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	time.Sleep(time.Second)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>根据该方式，就可以很容运行计算机上的其他任何程序，包括自身的命令行、Java程序等等。 </p>
-<h2 id="四-进程分类"><a href="#四-进程分类" class="headerlink" title="四 进程分类"></a>四 进程分类</h2><p>进程分类：</p>
+<p>贴士：</p>
 <ul>
-<li>用户进程：位于用户空间中，是程序执行的实例</li>
-<li>内核进程：位于内核空间中，可以访问硬件</li>
+<li>字符类型也可以用<code>d%</code>打印为整型</li>
+<li>如果我们保存的字符在 ASCII 表的,比如[0-1, a-z,A-Z..]直接可以保存到 byte</li>
+<li>如果我们保存的字符对应码值大于 255,这时我们可以考虑使用 int 类型保存</li>
+<li>如果我们需要安装字符的方式输出，这时我们需要格式化输出，即 fmt.Printf(“%c”, c1)</li>
+<li>字符可以和整型进行运算</li>
 </ul>
-<p>由于用户进程无法访问内核空间，所以无法直接操作硬件。内核会暴露一些接口提供给用户进程使用，让用户进程简介操作硬件，这便是系统调用。  </p>
-<p>内核为了保证系统的安全和稳定，为<strong>CPU</strong>特供了两个状态：</p>
-<ul>
-<li>用户态：大部分时间CPU处于该状态，此时只能访问用户空间</li>
-<li>内核态：当用户进程发起系统调用时，内核会将CPU切换到内核态，然后执行相应接口函数。</li>
-</ul>
-<p>注意：这里的用户态和内核态是针对CPU的。</p>
-<h2 id="五-进程调度"><a href="#五-进程调度" class="headerlink" title="五 进程调度"></a>五 进程调度</h2><p>同一时刻只能运行一个进程，但是CPU可以在多个进程间进行来回切换，我们称之为上下文切换。  </p>
-<p>操作系统会按照调度算法为每个进程分配一定的CPU运行时间，称之为时间轮片，每个进程在运行时都会认为自己独占了CPU，如图所示：  </p>
-<p><img src="https://img2020.cnblogs.com/blog/1762180/202006/1762180-20200617144935021-2033838115.png" alt=""></p>
-<p>切换进程是有代价的，因为必须保存进程的运行时状态。</p>
-<h2 id="六-进程状态转换"><a href="#六-进程状态转换" class="headerlink" title="六 进程状态转换"></a>六 进程状态转换</h2><p>进程在创建后，在执行过程中，其状态一直在变化。不同时代的操作系统有不同的进程模型：</p>
-<ul>
-<li>三态模型：运行态、就绪态、等待态</li>
-<li>五态模型：初始态、就绪态、运行态、挂起态（阻塞）、终止态</li>
-</ul>
-<p>本笔记介绍五态模型。初始态是进程的准备节点，常与就绪状态结合来看，进程的状态转换图：<br><img src="https://img2020.cnblogs.com/blog/1762180/202006/1762180-20200617144955209-1819843388.png" alt=""></p>
-<h2 id="七-进程运行的问题"><a href="#七-进程运行的问题" class="headerlink" title="七 进程运行的问题"></a>七 进程运行的问题</h2><h3 id="7-1-写时复制"><a href="#7-1-写时复制" class="headerlink" title="7.1 写时复制"></a>7.1 写时复制</h3><p>父进程无法预测子进程什么时候结束，只有进程完成工作后，父进程才会调用子进程的终止态。  </p>
-<p>贴士：全盘复制父进程的数据相当低效，Linux使用写时复制（COW：Copy on Write）技术来提高进程的创建效率。  </p>
-<h3 id="7-2-进程回收"><a href="#7-2-进程回收" class="headerlink" title="7.2 进程回收"></a>7.2 进程回收</h3><p>当一个进程退出之后，进程能够回收自己的用户区的资源，但是不能回收内核空间的PCB资源，必须由它的父进程调用wait或者waitpid函数完成对子进程的回收，避免造成系统资源的浪费。  </p>
-<blockquote>
-<p>孤儿进程：父进程先于子进程结束，则子进程成为孤儿进程，此时该进程会被系统的 init 进程领养 </p>
-</blockquote>
-<blockquote>
-<p>僵尸进程：子进程终止，但父进程未回收，子进程残留资源（PCB）于内核中，变成僵尸进程。  </p>
-</blockquote>
-<p>注意：由于僵尸进程是一个已经死亡的进程，所以不能使用kill命令将其杀死，通过杀死其父进程的方法可以消除僵尸进程，杀死其父进程后，这个僵尸进程会被init进程领养，由init进程完成对僵尸进程的回收。</p>
-<h2 id="八-进程间通信"><a href="#八-进程间通信" class="headerlink" title="八 进程间通信"></a>八 进程间通信</h2><h3 id="8-0-进程间通信方式概述"><a href="#8-0-进程间通信方式概述" class="headerlink" title="8.0 进程间通信方式概述"></a>8.0 进程间通信方式概述</h3><p>Linux环境下，进程地址空间相互独立，每个进程各自有不同的用户地址空间。任何一个进程的全局变量在另一个进程中都看不到，所以进程和进程之间不能相互访问，要交换数据必须通过内核，在内核中开辟一块缓冲区，进程1把数据从用户空间拷到内核缓冲区，进程2再从内核缓冲区把数据读走，内核提供的这种机制称为进程间通信（IPC，InterProcess Communication）。   </p>
-<p><img src="https://img2020.cnblogs.com/blog/1762180/202005/1762180-20200528202605009-1009624433.png" alt="">  </p>
-<p>在进程间完成数据传递需要借助操作系统提供特殊的方法，如：文件、管道、信号、共享内存、消息队列、套接字、命名管道等。随着计算机的蓬勃发展，一些方法由于自身设计缺陷被淘汰或者弃用。现今常用的进程间通信方式有：</p>
-<ul>
-<li>管道 (使用最简单)</li>
-<li>共享映射区 (无血缘关系进程通信)</li>
-<li>信号 (开销最小)</li>
-<li>本地套接字 (最稳定)</li>
-</ul>
-<p>Go支持的IPC方法有：管道、信号、socket。  </p>
-<h3 id="8-1-管道"><a href="#8-1-管道" class="headerlink" title="8.1 管道"></a>8.1 管道</h3><p>管道是一种最基本的IPC机制，也称匿名管道，应用于有血缘关系的进程之间，完成数据传递。调用C的pipe函数即可创建一个管道。  </p>
-<p><img src="https://img2020.cnblogs.com/blog/1762180/202005/1762180-20200528202623807-2077795974.png" alt="">  </p>
-<p>管道有如下特质：</p>
-<ul>
-<li>管道的本质是一块内核缓冲区 </li>
-<li>由两个文件描述符引用，一个表示读端，一个表示写端。</li>
-<li>规定数据从管道的写端流入管道，从读端流出。</li>
-<li>当两个进程都终结的时候，管道也自动消失。</li>
-<li>管道的读端和写端默认都是阻塞的。</li>
-</ul>
-<p>管道的实质是内核缓冲区，内部使用唤醒队列实现。  </p>
-<p>管道的缺陷：</p>
-<ul>
-<li>管道中的数据一旦被读走，便不在管道中存在，不可反复读取。</li>
-<li>数据只能在一个方向上流动，若要实现双向流动，必须使用两个管道</li>
-<li>只能在有血缘关系的进程间使用管道。</li>
-</ul>
-<p>Go模拟管道的实现：</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">cmd1 := exec.Command(<span class="string">"ps"</span>, <span class="string">"aux"</span>)</span><br><span class="line">cmd2 := exec.Command(<span class="string">"grep"</span>, <span class="string">"apipe"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> outputBuf1 bytes.Buffer</span><br><span class="line">cmd1.Stdout = &amp;outputBuf1</span><br><span class="line">cmd1.Start()</span><br><span class="line">cmd1.Wait()				<span class="comment">// 开始阻塞</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> outputBuf2 bytes.Buffer</span><br><span class="line">cmd2.Stdout = &amp;outputBuf2</span><br><span class="line">cmd2.Start()</span><br><span class="line">cmd2.Wait()				<span class="comment">// 开始阻塞</span></span><br><span class="line"></span><br><span class="line">fmt.Println(outputBuf2.Bytes())</span><br></pre></td></tr></table></figure>
+<h2 id="二-字符串"><a href="#二-字符串" class="headerlink" title="二 字符串"></a>二 字符串</h2><p>传统的字符串是由字符组成的，而Go的字符串是由单个字节连接起来的，即Go字符串是一串固定长度的字符连接起来的字符序列。  </p>
+<p>字符串在Go语言中是基本类型，内容在初始化后不能修改。  </p>
+<p>Go中的字符串都是采用UTF-8字符集编码，使用一对双引号<code>&quot;&quot;</code>或反引号<code>``</code>定义。<code>``</code>可以额外解析换行，即其没有字符转义功能。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> str1 <span class="keyword">string</span></span><br><span class="line">str1 = <span class="string">"Hello "</span></span><br><span class="line">str2 := <span class="string">" World!"</span></span><br><span class="line"></span><br><span class="line">fmt.Println(str1[<span class="number">0</span>])     	<span class="comment">// 输出字符串第一个字符 72</span></span><br><span class="line">fmt.Println(<span class="built_in">len</span>(str1))   	<span class="comment">// 输出长度 6</span></span><br><span class="line">fmt.Println(str1 + str2) 	<span class="comment">// 输出不带空格的</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 字符串不可变，编译报错： cannot assign to 因为</span></span><br><span class="line"><span class="comment">// str1[0] = 'c'</span></span><br></pre></td></tr></table></figure>
 
-<p>当然也有一种管道称为命名管道（FIFO），它支持无血缘关系的进程之间通信。FIFO是Linux基础文件类型中的一种（文件类型为p，可通过ls -l查看文件类型）。但FIFO文件在磁盘上没有数据块，文件大小为0，仅仅用来标识内核中一条通道。进程可以打开这个文件进行read/write，实际上是在读写内核缓冲区，这样就实现了进程间通信，如图所示：  </p>
-<p><img src="https://img2020.cnblogs.com/blog/1762180/202005/1762180-20200528202638792-630623438.png" alt="">  </p>
-<h3 id="8-2-内存映射区"><a href="#8-2-内存映射区" class="headerlink" title="8.2 内存映射区"></a>8.2 内存映射区</h3><p>存储映射I/O (Memory-mapped I/O) 使一个磁盘文件与存储空间中的一个缓冲区相映射。从缓冲区中取数据，就相当于读文件中的相应字节；将数据写入缓冲区，则会将数据写入文件。这样，就可在不使用read和write函数的情况下，使用地址（指针）完成I/O操作。  </p>
-<p>使用存储映射这种方法，首先应通知内核，将一个指定文件映射到存储区域中。这个映射工作可以通过mmap函数来实现。  </p>
-<p><img src="https://img2020.cnblogs.com/blog/1762180/202005/1762180-20200528202652898-1438911582.png" alt="">  </p>
-<h3 id="8-3-信号"><a href="#8-3-信号" class="headerlink" title="8.3 信号"></a>8.3 信号</h3><p>信号是IPC中唯一一种异步的通信方法，本质是用软件模拟硬件的中断机制，例如：在命令行终端按下某些快捷键，就会挂起或停止正在运行的程序。Go中的ginal包提供了相关操作。  </p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">sigRecv := <span class="built_in">make</span>(<span class="keyword">chan</span> os.Signal, <span class="number">1</span>)                      <span class="comment">// 创建接收通道</span></span><br><span class="line">sigs := []os.Signal&#123;syscall.SIGINT, syscall.SIGQUIT&#125;    <span class="comment">// 创建信号类型</span></span><br><span class="line">signal.Notify(sigRecv, sigs...)</span><br><span class="line"><span class="keyword">for</span> sig := <span class="keyword">range</span> sigRecv &#123;                              <span class="comment">// 循环接收通道中的信号，通道关闭后，for会立即停止</span></span><br><span class="line">	fmt.Println(sig)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于Go中的字符串不可直接改变，可以使用下列两种方式进行修改：</p>
+<p>方式一：通过转换为字节数组<code>[]byte</code>类型，构造一个临时字符串</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">str := <span class="string">"hello"</span></span><br><span class="line"></span><br><span class="line">strTemp := []<span class="keyword">byte</span>(str)</span><br><span class="line">fmt.Println(<span class="string">"strTemp="</span>, strTemp)			<span class="comment">// [104 101 108 108 111]</span></span><br><span class="line"></span><br><span class="line">strTemp[<span class="number">0</span>] = <span class="string">'c'</span></span><br><span class="line">strResult := <span class="keyword">string</span>(strTemp)</span><br><span class="line">fmt.Println(<span class="string">"strResult="</span>, strResult)		<span class="comment">// strResult= cello</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="8-4-socket"><a href="#8-4-socket" class="headerlink" title="8.4 socket"></a>8.4 socket</h3><p>socket即套接字，也是一种IPC方法，与其他IPC方法不同之处在于：可以通过网络连接让多个进程建立通信并相互传递数据，这使得通信不再依赖于在同一台计算机上。</p>
-<h2 id="九-进程同步"><a href="#九-进程同步" class="headerlink" title="九 进程同步"></a>九 进程同步</h2><p>当多个子进程对同一资源进行访问时，就会产生竞态条件。比如：某一个数据，进程A对其进行执行<code>一系列</code>操作，但是在执行过程中，系统有可能会切换到另外一个进程B中，B也对该数据进行<code>一系列</code>操作，那么在两个进程中操作同一份数据时，这个数据的结果值到底按照谁的来运算呢？    </p>
-<p>原子操作：如果执行过程中操作不能中断，那么就能解决上述问题，这样的操作称为原子操作（atomic operation）。这些只能被串行化访问或执行的资源或者某段代码被称为临界区（critical section）。Go中(sync/atomic包提供了原子操作函数)。  </p>
-<p>注意：</p>
-<ul>
-<li>所有的系统调用都是原子操作，即不用担心它们的执行被中断！</li>
-<li>原子操作不能被中断，临界区是否可以被中断没有强制规定，只是保证了只能同时被一个访问者访问。 </li>
-</ul>
-<p>问题：如果一个原子操作无法结束，现在也无法中断，如何处理？  </p>
-<blockquote>
-<p>答案：内核只提供了针对二进制位和整数的原子操作（即保证细粒度），不会有上述现象。  </p>
-</blockquote>
-<p>互斥锁：<br>在实际开发中，原子操作并不通用，我们可以保证只有一个进程/线程在临界区，该做法称为互斥锁（exclusion principle），比如信号量是实现互斥方法的方式之一，Golang的sync包也有对互斥的支持。  </p>
+<p>方式二：使用切片</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">str := <span class="string">"hello"</span></span><br><span class="line">str = <span class="string">"c"</span>+ str[<span class="number">1</span>:]		<span class="comment">// 1: 表示从第1位开始到最后</span></span><br></pre></td></tr></table></figure>
+
+<p>Go和Java等语言一样，字符串默认是不可变的，这样保证了线程安全，大家使用的都是只读对象，无须加锁，且能很方便的共享内存，不必使用写时复制。</p>
+<h2 id="三-字符串常用操作"><a href="#三-字符串常用操作" class="headerlink" title="三 字符串常用操作"></a>三 字符串常用操作</h2><h4 id="3-1-len-函数与字符串遍历"><a href="#3-1-len-函数与字符串遍历" class="headerlink" title="3.1 len()函数与字符串遍历"></a>3.1 len()函数与字符串遍历</h4><p>len()函数是go语言的内建函数，可以用来获取字符串、切片、通道等的长度。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"unicode/utf8"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	str1 := <span class="string">"hello world"</span></span><br><span class="line">	str2 := <span class="string">"你好，"</span></span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="built_in">len</span>(str1))							<span class="comment">// 11</span></span><br><span class="line">	fmt.Println(<span class="built_in">len</span>(str2))							<span class="comment">// 9</span></span><br><span class="line">	fmt.Println(utf8.RuneCountInString(str2))		<span class="comment">// 3</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第一个函数输出11很容易理解，第二个函数却输出了9，理论上我们会认为应该是3才对。这是因为Go的字符串都是以UTF-8格式保存，每个中文占据3个字节。Go中计算UTF-8字符串格式的长度应该使用<code>utf8.RuneCountInString</code>。</p>
+<p>字符串遍历方式一：使用字节数组，注意每个中文在UTF-8中占据3个字节</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">str := <span class="string">"hello"</span></span><br><span class="line"><span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(str); i++ &#123;</span><br><span class="line">	fmt.Println(i,str[i])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>字符串遍历方式二：range关键字只是第一种遍历方式的简写</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">str := <span class="string">"你好"</span></span><br><span class="line"><span class="keyword">for</span> i,ch := <span class="keyword">range</span> str &#123;</span><br><span class="line">	fmt.Println(i,ch)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>：由于上述len()函数本身原因，Unicode字符遍历需要使用range。</p>
+<h4 id="3-2-string-函数类型转换"><a href="#3-2-string-函数类型转换" class="headerlink" title="3.2 string()函数类型转换"></a>3.2 string()函数类型转换</h4><p>go的内建函数 <code>string()</code>可以将其他类型转变为字符串类型：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">num := <span class="number">12</span></span><br><span class="line">fmt.Printf(<span class="string">"%T \n"</span>, <span class="keyword">string</span>(num))			<span class="comment">// string</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-3-字符串连接"><a href="#3-3-字符串连接" class="headerlink" title="3.3 字符串连接"></a>3.3 字符串连接</h4><p>使用<code>+</code>能够连接字符串。但是该操作并不高效（因为字符串在Go中是基本类型，每次拼接都是拷贝了内存！）。Go1.10提供了类似Java的StringBuilder机制来进行高效字符串连接：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"bytes"</span></span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	str1 := <span class="string">"hello "</span></span><br><span class="line">	str2 := <span class="string">" world"</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//创建字节缓冲</span></span><br><span class="line">	<span class="keyword">var</span> stringBuilder bytes.Buffer</span><br><span class="line"></span><br><span class="line">	<span class="comment">//把字符串写入缓冲</span></span><br><span class="line">	stringBuilder.WriteString(str1)</span><br><span class="line">	stringBuilder.WriteString(str2)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//将缓冲以字符串形式输出</span></span><br><span class="line">	fmt.Println(stringBuilder.String())</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在1.10版本前，可以使用bytes.Buffer拼接字符串（因为字符串其实是字节数组）：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> buf bytes.Buffer</span><br><span class="line">buf.WriteString(<span class="string">"hello"</span>)</span><br><span class="line">fmt.Println(buf.String())</span><br></pre></td></tr></table></figure>
+
+<h2 id="四-strings包相关函数"><a href="#四-strings包相关函数" class="headerlink" title="四 strings包相关函数"></a>四 strings包相关函数</h2><p>strings包提供了字符串的一些常见操作函数：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//查找s在字符串str中的索引</span></span><br><span class="line">Index(str, s <span class="keyword">string</span>) <span class="keyword">int</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">//判断str是否包含s</span></span><br><span class="line">Contains(str, s <span class="keyword">string</span>) <span class="keyword">bool</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//通过字符串str连接切片 s</span></span><br><span class="line">Join(s []<span class="keyword">string</span>, str <span class="keyword">string</span>) <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//替换字符串str中old字符串为new字符串，n表示替换的次数，小于0全部替换</span></span><br><span class="line">Replace(str,old,<span class="built_in">new</span> <span class="keyword">string</span>,n <span class="keyword">int</span>) <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//字符串str按照s分割，返回切片</span></span><br><span class="line">Splite(str,s <span class="keyword">string</span>)[]<span class="keyword">string</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 去除头部、尾部指定的字符串</span></span><br><span class="line">Trim(s <span class="keyword">string</span>, cutset <span class="keyword">string</span>) <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 去除空格，返回切片</span></span><br><span class="line">Fields(s <span class="keyword">string</span>) []<span class="keyword">string</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="五-strconv包的字符串转换函数"><a href="#五-strconv包的字符串转换函数" class="headerlink" title="五 strconv包的字符串转换函数"></a>五 strconv包的字符串转换函数</h2><p>在Java中遇到 <code>&quot;你好&quot; + 123</code>会将 <code>+</code>转变为连接符。而Go语言要求 <code>+</code> 号两边数据的数据类型必须一致，这使得类似的操作变得比较不便，Go提供了strconv包用于字符串与基本类型之间的转换，常用函数有Append、Format、Parse。  </p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"strconv"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Append 系列函数将整数等转换为字符串后，添加到现有的字节数组中</span></span><br><span class="line">	str1 := <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="number">0</span>, <span class="number">100</span>)</span><br><span class="line">	str1 = strconv.AppendInt(str1, <span class="number">4567</span>, <span class="number">10</span>)</span><br><span class="line">	str1 = strconv.AppendBool(str1, <span class="literal">false</span>)</span><br><span class="line">	str1 = strconv.AppendQuote(str1, <span class="string">"abcdefg"</span>)</span><br><span class="line">	str1 = strconv.AppendQuoteRune(str1, <span class="string">'单'</span>)</span><br><span class="line">	fmt.Println(<span class="keyword">string</span>(str1))						<span class="comment">// 4567false"abcdefg"'单'</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// Format 系列函数把其他类型的转换为字符串</span></span><br><span class="line">	a := strconv.FormatBool(<span class="literal">false</span>)</span><br><span class="line">	b := strconv.FormatFloat(<span class="number">123.23</span>, <span class="string">'g'</span>, <span class="number">12</span>, <span class="number">64</span>)</span><br><span class="line">	c := strconv.FormatInt(<span class="number">1234</span>, <span class="number">10</span>)</span><br><span class="line">	d := strconv.FormatUint(<span class="number">12345</span>, <span class="number">10</span>)</span><br><span class="line">	e := strconv.Itoa(<span class="number">1023</span>)</span><br><span class="line">	fmt.Println(a, b, c, d, e)						<span class="comment">// false 123.23 1234 12345 1023</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// Parse 系列函数把字符串转换为其他类型</span></span><br><span class="line">	f, _ := strconv.ParseBool(<span class="string">"false"</span>)</span><br><span class="line">	g, _ := strconv.ParseFloat(<span class="string">"123.23"</span>, <span class="number">64</span>)</span><br><span class="line">	h, _ := strconv.ParseInt(<span class="string">"1234"</span>, <span class="number">10</span>, <span class="number">64</span>)</span><br><span class="line">	i, _ := strconv.ParseUint(<span class="string">"12345"</span>, <span class="number">10</span>, <span class="number">64</span>)</span><br><span class="line">	j, _ := strconv.Atoi(<span class="string">"1023"</span>)</span><br><span class="line">	fmt.Println(f, g, h, j, i, j)					<span class="comment">// false 123.23 1234 1023 12345 1023</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p><img src="https://img2020.cnblogs.com/blog/1762180/202006/1762180-20200612111216567-1625246241.png" alt=""></p>
 ]]></content>
       <categories>
         <category>Go学习</category>
-        <category>并发编程</category>
       </categories>
       <tags>
         <tag>Go</tag>
@@ -1627,6 +1521,112 @@
 <li>channel拥有类型，一个string的channle只能存放string类型数据</li>
 </ul>
 <p>golang奉行通过通信来共享内存，而不是通过共享内存来通信。</p>
+<p><img src="https://img2020.cnblogs.com/blog/1762180/202006/1762180-20200612111216567-1625246241.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>Go学习</category>
+        <category>并发编程</category>
+      </categories>
+      <tags>
+        <tag>Go</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>并发编程-多进程</title>
+    <url>/posts/b49d9315.html</url>
+    <content><![CDATA[<h2 id="一-进程概念"><a href="#一-进程概念" class="headerlink" title="一  进程概念"></a>一  进程概念</h2><blockquote>
+<p>进程：就是二进制可执行文件在计算机内存中的运行实例，可以简单理解为：一个.exe文件是个类，进程就是该类new出来的实例。<br>进程是操作系统最小的资源分配单位（如虚拟内存资源），所有代码都是在进程中执行的。 </p>
+</blockquote>
+<p>为了方便管理进程，每个进程都有自己的描述符，是个复杂的数据结构，我们称之为<strong>进程控制块</strong>，即PCB(Process Control Block)。  </p>
+<p>PCB中保存了进程的管理、控制信息等数据，主要包含字段有：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">进程ID（PID）：进程的唯一标识符 ，是一个非负整数的顺序编号</span><br><span class="line">父进程ID（PPID）：当前进程的父进程ID</span><br><span class="line">文件描述符表：即很多指向file接否提的指针</span><br><span class="line">进程状态：就绪、运行、挂起、停止等状态</span><br><span class="line">虚拟地址范围</span><br><span class="line">访问权限 </span><br><span class="line">当前工作目录</span><br><span class="line">用户id和组id</span><br><span class="line">会话和进程组</span><br><span class="line">&#96;&#96;&#96; </span><br><span class="line"></span><br><span class="line">贴士：进程ID是可以重用的，当进程ID达到最大限额值时，内核会从头开始查找闲置的进程ID并使用最先找到的那一个作为新进程的ID</span><br><span class="line"></span><br><span class="line">## 二 进程创建</span><br><span class="line"></span><br><span class="line">Unix系统在启动后，会首先运行一个名为 init 的进程，其PID 为 1。该进程是所有其他进程的父进程。  </span><br><span class="line"></span><br><span class="line">Unix操作系统通过 &#96;fork()&#96; 函数能够创建多个子进程，从而能够提升计算机资源的利用率。此时调用者称为父进程，被创造出来的进程称为子进程。  </span><br><span class="line">- 每个子进程都是源自它的父进程的一个副本，它会获得父进程的数据段、堆、栈的拷贝，并与父进程共享代码段。  </span><br><span class="line">- 子进程对自己副本的修改对其父进程和兄弟进程都是不可见的，反之亦然。  </span><br><span class="line"></span><br><span class="line">创建的子进程可以直接开始运行，但是也可以通过 &#96;exec()&#96; 函数来加载一个全新的程序，此时子进程会丢弃现存的程序文本段，为加载的新程序重新创建栈、数据段、堆，我们对这一个过程称为执行一个新程序。  </span><br><span class="line"></span><br><span class="line">贴士：exec并不是1个函数, 是一系列 exec 开头的函数，作用都是执行新程序。 </span><br><span class="line"></span><br><span class="line">C语言示例如下：</span><br><span class="line">&#96;&#96;&#96;c</span><br><span class="line">#include &lt;stdio.h&gt; </span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line"> </span><br><span class="line">int main()&#123;</span><br><span class="line"></span><br><span class="line">    pid_t pid;</span><br><span class="line">    int r;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 创建子进程</span><br><span class="line">    pid &#x3D; fork();                     </span><br><span class="line">    if (pid &#x3D;&#x3D; -1)&#123;                   &#x2F;&#x2F; 发生错误</span><br><span class="line">        perror(&quot;fork发生错误 &quot;);</span><br><span class="line">        exit(1);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    &#x2F;&#x2F; 返回值大于0时是父进程</span><br><span class="line">    if(pid &gt; 0)&#123;                        </span><br><span class="line">        printf(&quot;父进程: pid &#x3D; %d, ppid &#x3D; %d \n&quot;, getpid(),getppid());        &#x2F;&#x2F; 父进程执行动作</span><br><span class="line">        sleep(3);                       &#x2F;&#x2F; 父进程睡眠，防止子进程还没运行完毕，父进程却直接退出了</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    &#x2F;&#x2F; 返回值为0的是子进程</span><br><span class="line">    if(pid &#x3D;&#x3D; 0)&#123;   </span><br><span class="line"></span><br><span class="line">        printf(&quot;子进程: pid &#x3D; %d , ppid &#x3D; %d \n&quot;, getpid(),getppid());     &#x2F;&#x2F; 子进程执行动作</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 子进程加载一个新程序：系统自带的 echo程序，输出 hello world!</span><br><span class="line">        char * execv_str[] &#x3D; &#123;&quot;echo&quot;, &quot;hello world!&quot;,NULL&#125;;</span><br><span class="line">        int r &#x3D; execv(&quot;&#x2F;bin&#x2F;echo&quot;, execv_str);    &#x2F;&#x2F; 笔者的是mac，linux上为： &quot;&#x2F;usr&#x2F;bin&#x2F;echo&quot;  </span><br><span class="line">		if (r &lt;0 )&#123;</span><br><span class="line">			perror(&quot;error on exec&quot;);</span><br><span class="line">			exit(0);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 Go 语言中，没有直接提供 fork 系统调用的封装，而是将 fork 和 execve 合二为一，具体信息可以参见Go的os包。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"os"</span></span><br><span class="line">	<span class="string">"time"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="string">"当前进程ID："</span>, os.Getpid())</span><br><span class="line"></span><br><span class="line">	procAttr := &amp;os.ProcAttr&#123;</span><br><span class="line">		Files: []*os.File&#123;os.Stdin, os.Stdout, os.Stderr&#125;,</span><br><span class="line">	&#125;</span><br><span class="line">	process, err := os.StartProcess(<span class="string">"/bin/echo"</span>, []<span class="keyword">string</span>&#123;<span class="string">""</span>, <span class="string">"hello,world!"</span>&#125;, procAttr)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"进程启动失败:"</span>, err)</span><br><span class="line">		os.Exit(<span class="number">2</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"子进程ID："</span>, process.Pid)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	time.Sleep(time.Second)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>根据该方式，就可以很容运行计算机上的其他任何程序，包括自身的命令行、Java程序等等。 </p>
+<h2 id="四-进程分类"><a href="#四-进程分类" class="headerlink" title="四 进程分类"></a>四 进程分类</h2><p>进程分类：</p>
+<ul>
+<li>用户进程：位于用户空间中，是程序执行的实例</li>
+<li>内核进程：位于内核空间中，可以访问硬件</li>
+</ul>
+<p>由于用户进程无法访问内核空间，所以无法直接操作硬件。内核会暴露一些接口提供给用户进程使用，让用户进程简介操作硬件，这便是系统调用。  </p>
+<p>内核为了保证系统的安全和稳定，为<strong>CPU</strong>特供了两个状态：</p>
+<ul>
+<li>用户态：大部分时间CPU处于该状态，此时只能访问用户空间</li>
+<li>内核态：当用户进程发起系统调用时，内核会将CPU切换到内核态，然后执行相应接口函数。</li>
+</ul>
+<p>注意：这里的用户态和内核态是针对CPU的。</p>
+<h2 id="五-进程调度"><a href="#五-进程调度" class="headerlink" title="五 进程调度"></a>五 进程调度</h2><p>同一时刻只能运行一个进程，但是CPU可以在多个进程间进行来回切换，我们称之为上下文切换。  </p>
+<p>操作系统会按照调度算法为每个进程分配一定的CPU运行时间，称之为时间轮片，每个进程在运行时都会认为自己独占了CPU，如图所示：  </p>
+<p><img src="https://img2020.cnblogs.com/blog/1762180/202006/1762180-20200617144935021-2033838115.png" alt=""></p>
+<p>切换进程是有代价的，因为必须保存进程的运行时状态。</p>
+<h2 id="六-进程状态转换"><a href="#六-进程状态转换" class="headerlink" title="六 进程状态转换"></a>六 进程状态转换</h2><p>进程在创建后，在执行过程中，其状态一直在变化。不同时代的操作系统有不同的进程模型：</p>
+<ul>
+<li>三态模型：运行态、就绪态、等待态</li>
+<li>五态模型：初始态、就绪态、运行态、挂起态（阻塞）、终止态</li>
+</ul>
+<p>本笔记介绍五态模型。初始态是进程的准备节点，常与就绪状态结合来看，进程的状态转换图：<br><img src="https://img2020.cnblogs.com/blog/1762180/202006/1762180-20200617144955209-1819843388.png" alt=""></p>
+<h2 id="七-进程运行的问题"><a href="#七-进程运行的问题" class="headerlink" title="七 进程运行的问题"></a>七 进程运行的问题</h2><h3 id="7-1-写时复制"><a href="#7-1-写时复制" class="headerlink" title="7.1 写时复制"></a>7.1 写时复制</h3><p>父进程无法预测子进程什么时候结束，只有进程完成工作后，父进程才会调用子进程的终止态。  </p>
+<p>贴士：全盘复制父进程的数据相当低效，Linux使用写时复制（COW：Copy on Write）技术来提高进程的创建效率。  </p>
+<h3 id="7-2-进程回收"><a href="#7-2-进程回收" class="headerlink" title="7.2 进程回收"></a>7.2 进程回收</h3><p>当一个进程退出之后，进程能够回收自己的用户区的资源，但是不能回收内核空间的PCB资源，必须由它的父进程调用wait或者waitpid函数完成对子进程的回收，避免造成系统资源的浪费。  </p>
+<blockquote>
+<p>孤儿进程：父进程先于子进程结束，则子进程成为孤儿进程，此时该进程会被系统的 init 进程领养 </p>
+</blockquote>
+<blockquote>
+<p>僵尸进程：子进程终止，但父进程未回收，子进程残留资源（PCB）于内核中，变成僵尸进程。  </p>
+</blockquote>
+<p>注意：由于僵尸进程是一个已经死亡的进程，所以不能使用kill命令将其杀死，通过杀死其父进程的方法可以消除僵尸进程，杀死其父进程后，这个僵尸进程会被init进程领养，由init进程完成对僵尸进程的回收。</p>
+<h2 id="八-进程间通信"><a href="#八-进程间通信" class="headerlink" title="八 进程间通信"></a>八 进程间通信</h2><h3 id="8-0-进程间通信方式概述"><a href="#8-0-进程间通信方式概述" class="headerlink" title="8.0 进程间通信方式概述"></a>8.0 进程间通信方式概述</h3><p>Linux环境下，进程地址空间相互独立，每个进程各自有不同的用户地址空间。任何一个进程的全局变量在另一个进程中都看不到，所以进程和进程之间不能相互访问，要交换数据必须通过内核，在内核中开辟一块缓冲区，进程1把数据从用户空间拷到内核缓冲区，进程2再从内核缓冲区把数据读走，内核提供的这种机制称为进程间通信（IPC，InterProcess Communication）。   </p>
+<p><img src="https://img2020.cnblogs.com/blog/1762180/202005/1762180-20200528202605009-1009624433.png" alt="">  </p>
+<p>在进程间完成数据传递需要借助操作系统提供特殊的方法，如：文件、管道、信号、共享内存、消息队列、套接字、命名管道等。随着计算机的蓬勃发展，一些方法由于自身设计缺陷被淘汰或者弃用。现今常用的进程间通信方式有：</p>
+<ul>
+<li>管道 (使用最简单)</li>
+<li>共享映射区 (无血缘关系进程通信)</li>
+<li>信号 (开销最小)</li>
+<li>本地套接字 (最稳定)</li>
+</ul>
+<p>Go支持的IPC方法有：管道、信号、socket。  </p>
+<h3 id="8-1-管道"><a href="#8-1-管道" class="headerlink" title="8.1 管道"></a>8.1 管道</h3><p>管道是一种最基本的IPC机制，也称匿名管道，应用于有血缘关系的进程之间，完成数据传递。调用C的pipe函数即可创建一个管道。  </p>
+<p><img src="https://img2020.cnblogs.com/blog/1762180/202005/1762180-20200528202623807-2077795974.png" alt="">  </p>
+<p>管道有如下特质：</p>
+<ul>
+<li>管道的本质是一块内核缓冲区 </li>
+<li>由两个文件描述符引用，一个表示读端，一个表示写端。</li>
+<li>规定数据从管道的写端流入管道，从读端流出。</li>
+<li>当两个进程都终结的时候，管道也自动消失。</li>
+<li>管道的读端和写端默认都是阻塞的。</li>
+</ul>
+<p>管道的实质是内核缓冲区，内部使用唤醒队列实现。  </p>
+<p>管道的缺陷：</p>
+<ul>
+<li>管道中的数据一旦被读走，便不在管道中存在，不可反复读取。</li>
+<li>数据只能在一个方向上流动，若要实现双向流动，必须使用两个管道</li>
+<li>只能在有血缘关系的进程间使用管道。</li>
+</ul>
+<p>Go模拟管道的实现：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">cmd1 := exec.Command(<span class="string">"ps"</span>, <span class="string">"aux"</span>)</span><br><span class="line">cmd2 := exec.Command(<span class="string">"grep"</span>, <span class="string">"apipe"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> outputBuf1 bytes.Buffer</span><br><span class="line">cmd1.Stdout = &amp;outputBuf1</span><br><span class="line">cmd1.Start()</span><br><span class="line">cmd1.Wait()				<span class="comment">// 开始阻塞</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> outputBuf2 bytes.Buffer</span><br><span class="line">cmd2.Stdout = &amp;outputBuf2</span><br><span class="line">cmd2.Start()</span><br><span class="line">cmd2.Wait()				<span class="comment">// 开始阻塞</span></span><br><span class="line"></span><br><span class="line">fmt.Println(outputBuf2.Bytes())</span><br></pre></td></tr></table></figure>
+
+<p>当然也有一种管道称为命名管道（FIFO），它支持无血缘关系的进程之间通信。FIFO是Linux基础文件类型中的一种（文件类型为p，可通过ls -l查看文件类型）。但FIFO文件在磁盘上没有数据块，文件大小为0，仅仅用来标识内核中一条通道。进程可以打开这个文件进行read/write，实际上是在读写内核缓冲区，这样就实现了进程间通信，如图所示：  </p>
+<p><img src="https://img2020.cnblogs.com/blog/1762180/202005/1762180-20200528202638792-630623438.png" alt="">  </p>
+<h3 id="8-2-内存映射区"><a href="#8-2-内存映射区" class="headerlink" title="8.2 内存映射区"></a>8.2 内存映射区</h3><p>存储映射I/O (Memory-mapped I/O) 使一个磁盘文件与存储空间中的一个缓冲区相映射。从缓冲区中取数据，就相当于读文件中的相应字节；将数据写入缓冲区，则会将数据写入文件。这样，就可在不使用read和write函数的情况下，使用地址（指针）完成I/O操作。  </p>
+<p>使用存储映射这种方法，首先应通知内核，将一个指定文件映射到存储区域中。这个映射工作可以通过mmap函数来实现。  </p>
+<p><img src="https://img2020.cnblogs.com/blog/1762180/202005/1762180-20200528202652898-1438911582.png" alt="">  </p>
+<h3 id="8-3-信号"><a href="#8-3-信号" class="headerlink" title="8.3 信号"></a>8.3 信号</h3><p>信号是IPC中唯一一种异步的通信方法，本质是用软件模拟硬件的中断机制，例如：在命令行终端按下某些快捷键，就会挂起或停止正在运行的程序。Go中的ginal包提供了相关操作。  </p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">sigRecv := <span class="built_in">make</span>(<span class="keyword">chan</span> os.Signal, <span class="number">1</span>)                      <span class="comment">// 创建接收通道</span></span><br><span class="line">sigs := []os.Signal&#123;syscall.SIGINT, syscall.SIGQUIT&#125;    <span class="comment">// 创建信号类型</span></span><br><span class="line">signal.Notify(sigRecv, sigs...)</span><br><span class="line"><span class="keyword">for</span> sig := <span class="keyword">range</span> sigRecv &#123;                              <span class="comment">// 循环接收通道中的信号，通道关闭后，for会立即停止</span></span><br><span class="line">	fmt.Println(sig)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-4-socket"><a href="#8-4-socket" class="headerlink" title="8.4 socket"></a>8.4 socket</h3><p>socket即套接字，也是一种IPC方法，与其他IPC方法不同之处在于：可以通过网络连接让多个进程建立通信并相互传递数据，这使得通信不再依赖于在同一台计算机上。</p>
+<h2 id="九-进程同步"><a href="#九-进程同步" class="headerlink" title="九 进程同步"></a>九 进程同步</h2><p>当多个子进程对同一资源进行访问时，就会产生竞态条件。比如：某一个数据，进程A对其进行执行<code>一系列</code>操作，但是在执行过程中，系统有可能会切换到另外一个进程B中，B也对该数据进行<code>一系列</code>操作，那么在两个进程中操作同一份数据时，这个数据的结果值到底按照谁的来运算呢？    </p>
+<p>原子操作：如果执行过程中操作不能中断，那么就能解决上述问题，这样的操作称为原子操作（atomic operation）。这些只能被串行化访问或执行的资源或者某段代码被称为临界区（critical section）。Go中(sync/atomic包提供了原子操作函数)。  </p>
+<p>注意：</p>
+<ul>
+<li>所有的系统调用都是原子操作，即不用担心它们的执行被中断！</li>
+<li>原子操作不能被中断，临界区是否可以被中断没有强制规定，只是保证了只能同时被一个访问者访问。 </li>
+</ul>
+<p>问题：如果一个原子操作无法结束，现在也无法中断，如何处理？  </p>
+<blockquote>
+<p>答案：内核只提供了针对二进制位和整数的原子操作（即保证细粒度），不会有上述现象。  </p>
+</blockquote>
+<p>互斥锁：<br>在实际开发中，原子操作并不通用，我们可以保证只有一个进程/线程在临界区，该做法称为互斥锁（exclusion principle），比如信号量是实现互斥方法的方式之一，Golang的sync包也有对互斥的支持。  </p>
 <p><img src="https://img2020.cnblogs.com/blog/1762180/202006/1762180-20200612111216567-1625246241.png" alt=""></p>
 ]]></content>
       <categories>
