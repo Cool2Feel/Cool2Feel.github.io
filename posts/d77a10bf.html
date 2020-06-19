@@ -70,7 +70,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT, Blog" />
+  <meta name="keywords" content="Go," />
 
 
 
@@ -85,13 +85,19 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Dwl&#39;s blog">
-<meta property="og:url" content="http://www.dwlblog.网址/tags/Go/page/2/index.html">
+<meta name="description" content="一 文件读取文件读写的接口位于io包，file文件类是这些接口的实现类。 1.1 直接读取 read()read() 实现的是按字节数读取： 1234567891011121314readByte :&#x3D; make([]byte, 128)			&#x2F;&#x2F; 指定要读取的长度for &amp;#123;	n, err :&#x3D; f.Read(readByte)			&#x2F;&#x2F; 将数据读取如切片，返回值 n 是实际读取到的字节">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go语言-文件的读操作">
+<meta property="og:url" content="http://www.dwlblog.网址/posts/d77a10bf.html">
 <meta property="og:site_name" content="Dwl&#39;s blog">
+<meta property="og:description" content="一 文件读取文件读写的接口位于io包，file文件类是这些接口的实现类。 1.1 直接读取 read()read() 实现的是按字节数读取： 1234567891011121314readByte :&#x3D; make([]byte, 128)			&#x2F;&#x2F; 指定要读取的长度for &amp;#123;	n, err :&#x3D; f.Read(readByte)			&#x2F;&#x2F; 将数据读取如切片，返回值 n 是实际读取到的字节">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1762180/202006/1762180-20200612111216567-1625246241.png">
+<meta property="article:published_time" content="2020-04-23T05:44:57.000Z">
+<meta property="article:modified_time" content="2020-06-19T01:16:18.602Z">
 <meta property="article:author" content="Dwesome">
-<meta property="article:tag" content="blog">
+<meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img2020.cnblogs.com/blog/1762180/202006/1762180-20200612111216567-1625246241.png">
 
 
 
@@ -121,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://www.dwlblog.网址/tags/Go/page/2/"/>
+  <link rel="canonical" href="http://www.dwlblog.网址/posts/d77a10bf.html"/>
 
 
 
 
 
-  <title>标签: Go | Dwl's blog</title>
+  <title>Go语言-文件的读操作 | Dwl's blog</title>
   
 
 
@@ -146,7 +152,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
     <a href="https://github.com/Cool2Feel" target="_blank" rel="noopener"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" alt="Fork me on GitHub"></a>
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -304,338 +310,283 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block tag">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h2>Go<small>标签</small>
-        </h2>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.dwlblog.网址/posts/d77a10bf.html">
 
-      <h3 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dwesome">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dwl's blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/posts/a7eee643.html" itemprop="url">
-              
-                <span itemprop="name">Go语言-运算符</span>
-              
-            </a>
         
-      </h3>
+          <h2 class="post-title" itemprop="name headline">Go语言-文件的读操作</h2>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-06-16T15:24:57+08:00"
-              content="2020-06-16" >
-          06-16
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-23T13:44:57+08:00">
+                2020-04-23
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">Go学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.1k words
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4 min
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/posts/78c44b99.html" itemprop="url">
-              
-                <span itemprop="name">Go语言-标识符与变量</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-06-16T15:24:57+08:00"
-              content="2020-06-16" >
-          06-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
+        <h2 id="一-文件读取"><a href="#一-文件读取" class="headerlink" title="一 文件读取"></a>一 文件读取</h2><p>文件读写的接口位于io包，file文件类是这些接口的实现类。</p>
+<h3 id="1-1-直接读取-read"><a href="#1-1-直接读取-read" class="headerlink" title="1.1 直接读取 read()"></a>1.1 直接读取 read()</h3><p>read() 实现的是按字节数读取：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">readByte := <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="number">128</span>)			<span class="comment">// 指定要读取的长度</span></span><br><span class="line"><span class="keyword">for</span> &#123;</span><br><span class="line">	n, err := f.Read(readByte)			<span class="comment">// 将数据读取如切片，返回值 n 是实际读取到的字节数</span></span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &amp;&amp; err != io.EOF&#123;		<span class="comment">// 如果读到了文件末尾：EOF 即 end of file</span></span><br><span class="line">		fmt.Println(<span class="string">"read file : "</span>, err)</span><br><span class="line">		<span class="keyword">break</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="string">"read: "</span>, <span class="keyword">string</span>(readByte[:n]))</span><br><span class="line">	<span class="keyword">if</span> n &lt; <span class="number">128</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"read end"</span>)</span><br><span class="line">		<span class="keyword">break</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+<h3 id="1-2-bufio的写操作"><a href="#1-2-bufio的写操作" class="headerlink" title="1.2 bufio的写操作"></a>1.2 bufio的写操作</h3><p>bufio封装了io.Reader、io.Writer接口对象，并创建了另一个也实现了该接口的对象：bufio.Reader、bufio.Writer。通过该实现，bufio实现了文件的缓冲区设计，可以大大提高文件I/O的效率。  </p>
+<p>使用bufio读取文件时，先将数据读入内存的缓冲区（缓冲区一般比要比程序中设置的文件接收对象要大），这样就可以有效降低直接I/O的次数。  </p>
+<p><code>bufio.Read([]byte)</code>相当于读取大小<code>len(p)</code>的内容：</p>
+<ul>
+<li>当缓冲区有内容时，将缓冲区内容全部填入p并清空缓冲区</li>
+<li>当缓冲区没有内容且<code>len(p)&gt;len(buf)</code>，即要读取的内容比缓冲区还要大，直接去文件读取即可</li>
+<li>当缓冲区没有内容且<code>len(p)&lt;len(buf)</code>，即要读取的内容比缓冲区小，读取文件内容并填满缓冲区，并将p填满</li>
+<li>以后再次读取时，缓冲区有内容，将缓冲区内容全部填入p并清空缓冲区（和第一步一致）</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建读对象</span></span><br><span class="line">reader := bufio.NewReader(f)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 读一行数据</span></span><br><span class="line">byt, _ := reader.ReadBytes(<span class="string">'\n'</span>)			</span><br><span class="line">fmt.Println(<span class="keyword">string</span>(byt))</span><br></pre></td></tr></table></figure>
 
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/posts/d178315d.html" itemprop="url">
-              
-                <span itemprop="name">Go语言-流程控制</span>
-              
-            </a>
-        
-      </h3>
+<p>ReadString() 函数也具有同样的功能，且能直接读取到字符串数据，无需转换，示例：读取大文件的全部数据</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">reader := bufio.NewReader(f)</span><br><span class="line"><span class="keyword">for</span> &#123;										<span class="comment">// 按照缓冲区读取：读取到特定字符结束</span></span><br><span class="line">	str, err := reader.ReadString(<span class="string">'\n'</span>)		<span class="comment">// 按行读取</span></span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &amp;&amp; err != io.EOF &#123;</span><br><span class="line">		fmt.Println(<span class="string">"read err: "</span>, err)</span><br><span class="line">		<span class="keyword">break</span></span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(<span class="string">"str = "</span>, str)</span><br><span class="line">	<span class="keyword">if</span> err == io.EOF &#123;</span><br><span class="line">		fmt.Print(<span class="string">"read end"</span>)</span><br><span class="line">		<span class="keyword">break</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-06-16T15:24:57+08:00"
-              content="2020-06-16" >
-          06-16
-        </time>
-      </div>
+<p>在Unix设计思想中，一切皆文件，命令行输入也可以作为文件读入：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">reader := bufio.NewReader(os.Stdin)</span><br><span class="line">s, _ := reader.ReadString(<span class="string">"-"</span>)		<span class="comment">// 假设命令行以 - 开始</span></span><br></pre></td></tr></table></figure>
 
-    </header>
-  </article>
+<p>缓冲的思想：通过bufio，数据被写入用户缓冲，再进入系统缓冲，最后由操作系统将系统缓冲区的数据写入磁盘。  </p>
+<h3 id="1-3-io-ioutil-包文件读取"><a href="#1-3-io-ioutil-包文件读取" class="headerlink" title="1.3 io/ioutil 包文件读取"></a>1.3 io/ioutil 包文件读取</h3><p>ioutil直接读取文件：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ret, err := ioutil.ReadFile(<span class="string">"test.txt"</span>)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"read err :"</span>, err)</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line">fmt.Println(<span class="keyword">string</span>(ret))</span><br></pre></td></tr></table></figure>
 
+<h3 id="二-文件写入"><a href="#二-文件写入" class="headerlink" title="二 文件写入"></a>二 文件写入</h3><h3 id="2-1-直接写"><a href="#2-1-直接写" class="headerlink" title="2.1 直接写"></a>2.1 直接写</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">f, err := os.OpenFile(<span class="string">"test.txt"</span>, os.O_CREATE | os.O_WRONLY, os.ModePerm)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"open err:"</span>, err)</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">defer</span> f.Close()</span><br><span class="line"></span><br><span class="line">n, err := f.Write([]<span class="keyword">byte</span>(<span class="string">"hello world"</span>))</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"write err:"</span>, err)</span><br><span class="line">&#125;</span><br><span class="line">fmt.Println(n)								<span class="comment">// 每次都会从头开始重新写入</span></span><br></pre></td></tr></table></figure>
 
-      
-        
+<p>上述案例中，如果我们不想每次写入都会从头开始重新写入，那么需要将打开模式修改为：<code>os.O_CREATE | os.O_WRONLY | os.O_APPEND</code></p>
+<h3 id="2-2-bufio的写操作"><a href="#2-2-bufio的写操作" class="headerlink" title="2.2 bufio的写操作"></a>2.2 bufio的写操作</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">writer := bufio.NewWriter(f)</span><br><span class="line">_, err = writer.WriteString(<span class="string">"hello world!"</span>)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"write err:"</span>, err)</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line">writer.Flush()		<span class="comment">// 必须刷新缓冲区：将缓冲区的内容写入文件中。如果不刷新，则只会在内容超出缓冲区大小时写入</span></span><br></pre></td></tr></table></figure>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+<h3 id="2-3-io-ioutil-包文件写入"><a href="#2-3-io-ioutil-包文件写入" class="headerlink" title="2.3  io/ioutil 包文件写入"></a>2.3  io/ioutil 包文件写入</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s := <span class="string">"你好世界"</span></span><br><span class="line">err := ioutil.WriteFile(<span class="string">"test.txt"</span>, []<span class="keyword">byte</span>(s), os.ModePerm)</span><br></pre></td></tr></table></figure>
 
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/posts/86e0d47b.html" itemprop="url">
-              
-                <span itemprop="name">Go语言-类型转换</span>
-              
-            </a>
-        
-      </h3>
+<h2 id="三-文件读取偏移量"><a href="#三-文件读取偏移量" class="headerlink" title="三 文件读取偏移量"></a>三 文件读取偏移量</h2><p>文件读取时，是可以控制光标位置的：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">f, err := os.OpenFile(<span class="string">"test.txt"</span>, os.O_RDWR, os.ModePerm)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"open err:"</span>, err)</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">defer</span> f.Close()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 读取前五个字节，假设读取的文件内容为： hello world!</span></span><br><span class="line">bs := []<span class="keyword">byte</span>&#123;<span class="number">0</span>&#125;		<span class="comment">// 创建1个字节的切片</span></span><br><span class="line">_, err = f.Read(bs)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"read err:"</span>, err)</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line">fmt.Println(<span class="string">"读到的数据是："</span>, <span class="keyword">string</span>(bs))	<span class="comment">// h</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 移动光标</span></span><br><span class="line">_, err = f.Seek(<span class="number">4</span>, io.SeekStart)		<span class="comment">// 光标从开始位置(h之前)，移动4位，到达o之前</span></span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"seek err:"</span>, err)</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line">_, err = f.Read(bs)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"read err:"</span>, err)</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line">fmt.Println(<span class="string">"读到的数据是："</span>, <span class="keyword">string</span>(bs))		<span class="comment">// o</span></span><br></pre></td></tr></table></figure>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-06-16T15:24:57+08:00"
-              content="2020-06-16" >
-          06-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/posts/a0d0d43c.html" itemprop="url">
-              
-                <span itemprop="name">Go语言-反射2</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-05-09T10:24:27+08:00"
-              content="2020-05-09" >
-          05-09
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/posts/61494d7a.html" itemprop="url">
-              
-                <span itemprop="name">Go语言-反射-1</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-05-03T09:54:07+08:00"
-              content="2020-05-03" >
-          05-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/posts/6014accc.html" itemprop="url">
-              
-                <span itemprop="name">Go语言-时间操作</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-26T10:34:57+08:00"
-              content="2020-04-26" >
-          04-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/posts/d77a10bf.html" itemprop="url">
-              
-                <span itemprop="name">Go语言-文件的读操作</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-23T13:44:57+08:00"
-              content="2020-04-23" >
-          04-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/posts/9c8ac2e0.html" itemprop="url">
-              
-                <span itemprop="name">Go语言-接口使用</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-21T15:24:57+08:00"
-              content="2020-04-21" >
-          04-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/posts/982ea620.html" itemprop="url">
-              
-                <span itemprop="name">Go语言-文件的写操作</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-21T10:24:57+08:00"
-              content="2020-04-21" >
-          04-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/posts/33f0beca.html" itemprop="url">
-              
-                <span itemprop="name">Go语言-接口断言、多态</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-15T16:14:57+08:00"
-              content="2020-04-15" >
-          04-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+<p>通过记录光标的位置，可以实现断点续传：假设已经下载了1KB文件，即本地临时文件存储了1KB，此时断电，重启后通过本地文件大小、Seek()方法获取到上次读取文件的光标位置即可实现继续下载！</p>
+<p><img src="https://img2020.cnblogs.com/blog/1762180/202006/1762180-20200612111216567-1625246241.png" alt=""></p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechat.png" alt="Dwesome 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Dwesome
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://www.dwlblog.网址/posts/d77a10bf.html" title="Go语言-文件的读操作">http://www.dwlblog.网址/posts/d77a10bf.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Go/" rel="tag"># Go</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/9c8ac2e0.html" rel="next" title="Go语言-接口使用">
+                <i class="fa fa-chevron-left"></i> Go语言-接口使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/6014accc.html" rel="prev" title="Go语言-时间操作">
+                Go语言-时间操作 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/tags/Go/">上一页</a><a class="page-number" href="/tags/Go/">1</a><span class="page-number current">2</span>
-  </nav>
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -643,6 +594,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -663,8 +618,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -769,6 +733,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-文件读取"><span class="nav-number">1.</span> <span class="nav-text">一 文件读取</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-直接读取-read"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 直接读取 read()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-bufio的写操作"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 bufio的写操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-io-ioutil-包文件读取"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 io&#x2F;ioutil 包文件读取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-文件写入"><span class="nav-number">1.4.</span> <span class="nav-text">二 文件写入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-直接写"><span class="nav-number">1.5.</span> <span class="nav-text">2.1 直接写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-bufio的写操作"><span class="nav-number">1.6.</span> <span class="nav-text">2.2 bufio的写操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-io-ioutil-包文件写入"><span class="nav-number">1.7.</span> <span class="nav-text">2.3  io&#x2F;ioutil 包文件写入</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-文件读取偏移量"><span class="nav-number">2.</span> <span class="nav-text">三 文件读取偏移量</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -904,6 +884,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
